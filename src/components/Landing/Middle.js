@@ -7,7 +7,7 @@ import eco from './Farm-pics/eco.png';
 
 function Middle() {
     return(
-        <div className="middle-container" id="middle">
+        <div className="middle-container">
             <a href="https://forestdalefarm.com" target="_blank">
             <img src={forestdale}/>
             </a>

@@ -7,7 +7,6 @@
   justify-content: center;
   align-items: center;
   align-content: stretch;
-  font-size: 50px;
 }
 
 .register-form {
@@ -15,17 +14,6 @@ width: 20vw;
 height: 50vh;
 border-style: solid;
 border-color: bisque;
-background-color: bisque;
-display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-  align-content: stretch;
-  border-radius: 25px;
-  margin-top: 20px;
-}
+background-color: cadetblue;
 
-::placeholder{
-  color:pink;
 }
