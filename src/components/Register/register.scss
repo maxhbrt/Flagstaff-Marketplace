@@ -1,0 +1,19 @@
+.register-body {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+}
+
+.register-form {
+width: 20vw;
+height: 50vh;
+border-style: solid;
+border-color: bisque;
+background-color: cadetblue;
+
+}

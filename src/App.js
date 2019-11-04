@@ -1,8 +1,9 @@
 import React from 'react';
 import Landing from './components/Landing/Landing';
-import Map from './Map/Map';
+
 import Header from './components/Header/Header';
 
+import routes from './routes'
 
 
 import './App.css';
@@ -13,8 +14,9 @@ function App() {
       <Header/>
       
       
-      <Landing/>
-      <Map/>
+      {/* <Landing/> */}
+      {/* <Map/> */}
+      {routes}
       
     </div>
   );

@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import { FaSun } from "react-icons/fa";
-import { TiThMenu } from 'react-icons/ti';
-import './header.scss';
+import { TiThMenu } from "react-icons/ti";
+import "./header.scss";
+import { Link } from "react-router-dom";
 
 export default class Header extends Component {
   constructor() {
     super();
-    this.state={
-        toggle: false
+    this.state = {
+      toggle: false
     };
-    this.toggler = this.toggler.bind(this)
+    this.toggler = this.toggler.bind(this);
   }
 
-  toggler(){
-      this.setState(prevState => {
-          return{
-              toggle: !prevState.toggle
-          }
-      })
+  toggler() {
+    this.setState(prevState => {
+      return {
+        toggle: !prevState.toggle
+      };
+    });
   }
 
   render() {
@@ -26,9 +27,10 @@ export default class Header extends Component {
         <div className="header-bar">
           <button className="header-button" onClick={this.toggler}>
             <TiThMenu />
-            
           </button>
-          <FaSun/>
+          <Link to="/">
+            <FaSun />
+          </Link>
 
           <nav className={this.state.toggle ? "show" : ""}>
             <ul>
@@ -36,14 +38,15 @@ export default class Header extends Component {
                 <li>
                   <a href="#/services">ABOUT</a>
                 </li>
+
                 <li>
-                  <a href="#/services">FARMS</a>
-                </li>
-                <li>
-                  <a href="#/services">CONTACT</a>
+                  <Link to="/map">FIND</Link>
                 </li>
                 <li>
                   <a href="/services">SHOP</a>
+                </li>
+                <li>
+                  <Link to="/register">REGISTER</Link>
                 </li>
               </div>
             </ul>
