@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './register.scss';
-import Header from '../Header/Header';
+import {FaCheckCircle} from 'react-icons/fa';
 
 export default class Register extends Component {
     constructor(props){
@@ -31,8 +31,8 @@ export default class Register extends Component {
           {/* username input */}
             
             <div className="input-container">
-              <label>name</label>
-              <input
+              
+              <input placeholder="name"
                 value={name}
                 onChange={e =>
                   this.setState({
@@ -44,8 +44,8 @@ export default class Register extends Component {
           
           {/* email input */}
           <div className="input-container">
-            <label>email</label>
-            <input
+            
+            <input placeholder="email"
               type="email"
               value={email}
               onChange={e =>
@@ -57,8 +57,8 @@ export default class Register extends Component {
           </div>
           {/* password */}
           <div className="input-container">
-            <label>password</label>
-            <input
+            
+            <input placeholder="password"
               type="password"
               value={password}
               onChange={e =>
@@ -70,8 +70,8 @@ export default class Register extends Component {
           </div>
           {/* address */}
           <div className="input-container">
-            <label>address</label>
-            <input
+            
+            <input placeholder="delivery address"
               type="text"
               value={address}
               onChange={e =>
@@ -81,7 +81,7 @@ export default class Register extends Component {
               }
             />
           </div>
-          
+          <FaCheckCircle size={30}/>
                 </form>
            
             </div>
