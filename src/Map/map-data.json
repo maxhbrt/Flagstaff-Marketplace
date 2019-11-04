@@ -1,0 +1,31 @@
+{
+    "features":[
+       { "properties" : {
+            "FARM_ID" : 1,
+            "NAME" : "ForestDale Farms",
+            "coordinates" : [35.181520, -111.600050],
+            "website" : "https://forestdalefarm.com"
+
+        }},
+        
+        {"properties" : {
+            "FARM_ID" : 2,
+            "NAME" : "Eco Ranch",
+            "coordinates" : [35.255600, -111.723160],
+            "website" : "https://flagstaffecoranch.com"
+            
+        }},
+        {"properties" : {
+            "FARM_ID" : 3,
+            "NAME" : "Roots Micro Farm",
+            "coordinates" : [35.201390, -111.655530],
+            "website" : "https://www.rootsmicrofarm.com"
+
+            
+            }}
+            
+        
+        
+        ]
+
+}

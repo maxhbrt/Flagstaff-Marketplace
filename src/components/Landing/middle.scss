@@ -1,0 +1,20 @@
+.middle-container{
+ width: 100vw;
+ height: 20vh;
+ display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+
+}
+
+img {
+ height: 100px;
+ width: 200px;   
+}
+
+.eco {
+    width: 260px;
+}
