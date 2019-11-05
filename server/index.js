@@ -27,9 +27,7 @@ app.use(
 
 massive(CONNECTION_STRING).then(db => {
     console.log("database connected");
-    db.init().then(() => {
         app.set("db", db);
-    })
 });
 
 app.post("/auth/register", register);
@@ -39,9 +37,11 @@ app.delete("/auth/logout", logout);
 
 app.get("/api/inventory", (req, res, next) => {
   const db = req.app.get("db");
-  db.query("SELECT * FROM inventory;").then(inventory => {
-    res.status(200).send(inventory);
-  });
+  db.getInventory().then(inventory => 
+    res.status(200).send(inventory)).catch( err => {
+        res.status(500).send({errorMessage: "something went wrong"})
+        console.log(err)
+    })
 });
 
 let port = SERVER_PORT || 4000;

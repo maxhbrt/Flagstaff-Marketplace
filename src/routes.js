@@ -3,6 +3,7 @@ import { Switch, Route} from "react-router-dom";
 import Find from "./components/Map/Map";
 import Register from "./components/Register/Register";
 import Landing from './components/Landing/Landing';
+import Shop from './components/Shop/Shop';
 
 
 export default (
@@ -10,5 +11,6 @@ export default (
         <Route component={Landing} exact path="/"/>
         <Route component={Find} path="/map"/>
         <Route component={Register} path="/register"/>
+        <Route component={Shop} path="/shop"/>
     </Switch>
 )

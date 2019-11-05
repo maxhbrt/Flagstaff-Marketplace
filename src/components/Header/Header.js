@@ -43,7 +43,7 @@ export default class Header extends Component {
                   <Link to="/map">FIND</Link>
                 </li>
                 <li>
-                  <a href="/services">SHOP</a>
+                  <Link to="/shop">SHOP</Link>
                 </li>
                 <li>
                   <Link to="/register">REGISTER</Link>

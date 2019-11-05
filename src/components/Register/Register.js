@@ -82,7 +82,7 @@ export default class Register extends Component {
               }
             />
           </div>
-          <FaCheckCircle size={40}/>
+          <FaCheckCircle size={40} />
                 </form>
            
             </div>

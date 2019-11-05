@@ -1,3 +1,4 @@
+
 CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
@@ -8,7 +9,7 @@ CREATE TABLE users(
 
 CREATE TABLE inventory(
     item_id SERIAL PRIMARY KEY,
-    item_name VARCHAR(64) NOT NULL,
+    item_name VARCHAR(80) NOT NULL,
     price DECIMAL NOT NULL,
     cat TEXT NOT NULL,
     farm_name TEXT NOT NULL,
