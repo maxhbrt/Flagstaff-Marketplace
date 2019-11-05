@@ -43,6 +43,7 @@ function Map(){
 
     }
 
+
     const WrappedMap = withScriptjs(withGoogleMap(Map));
 export default function MyMap(){
         return <div style={{ width: '100vw', height: '100vh'}}>
