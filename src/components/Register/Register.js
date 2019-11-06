@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './register.scss';
 import Header from '../Header/Header';
 import {FaCheckCircle} from "react-icons/fa";
+import axios from 'axios';
 
 export default class Register extends Component {
     constructor(props){
@@ -15,6 +16,19 @@ export default class Register extends Component {
         };
     }
 
+    async register(){
+      const { email, password, name, address } = this.state;
+      const registeredUser = await axios.post("/auth/register", {
+        email,
+        name,
+        password,
+        address
+      });
+      // this.props.setUser(registeredUser.data)
+    }
+
+
+
     render(){
         const { email, name, password, address} =  this.state; 
         return(
@@ -23,11 +37,7 @@ export default class Register extends Component {
             <div className='register-body'>
                 Register
                 <form className='register-form'
-                onSubmit={e => {
-            //   prevent default to stop form from refreshing
-            e.preventDefault();
-            
-          }}
+
         >
           {/* username input */}
             
@@ -77,12 +87,21 @@ export default class Register extends Component {
               value={address}
               onChange={e =>
                 this.setState({
-                  password: e.target.value
+                  address: e.target.value
                 })
               }
             />
           </div>
-          <FaCheckCircle size={40} />
+          <button onClick={ e => {
+            e.preventDefault();
+            this.register();
+            
+          }}>
+
+          <FaCheckCircle size={40} 
+          
+          />
+          </button>
                 </form>
            
             </div>
