@@ -12,7 +12,7 @@ render(){
             <img src={image}/>
             <h2>{item_name}</h2>
             <h3>{farm_name}</h3>
-            <div>{description}</div>
+            <h3>{description}</h3>
             <h2>{price}</h2>
         </div>
     )

@@ -44,5 +44,35 @@ app.get("/api/inventory", (req, res, next) => {
     })
 });
 
+app.get("/api/inventory/greens", (req, res, next) => {
+    const db = req.app.get("db");
+    db.get_inv_greens().then(inventory => 
+      res.status(200).send(inventory)).catch( err => {
+          res.status(500).send({errorMessage: "something went wrong"})
+          console.log(err)
+      })
+  });
+
+  app.get("/api/inventory/produce", (req, res, next) => {
+    const db = req.app.get("db");
+    db.get_inv_produce().then(inventory => 
+      res.status(200).send(inventory)).catch( err => {
+          res.status(500).send({errorMessage: "something went wrong"})
+          console.log(err)
+      })
+  });
+
+  app.get("/api/inventory/eggs", (req, res, next) => {
+    const db = req.app.get("db");
+    db.get_inv_eggs().then(inventory => 
+      res.status(200).send(inventory)).catch( err => {
+          res.status(500).send({errorMessage: "something went wrong"})
+          console.log(err)
+      })
+  });
+
+
+
+
 let port = SERVER_PORT || 4000;
 app.listen(port, () => console.log(`up and running on port ${port}`));
