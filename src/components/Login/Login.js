@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import './login.scss';
-import Axios from 'axios';
+import axios from 'axios';
+import { connect } from "react-redux";
+import { setUser } from '../../Ducks/reducer';
 
 
-export default class Login extends Component {
+
+
+class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -15,11 +19,11 @@ export default class Login extends Component {
 
     async login(){
         const { email, password } = this.state;
-        const loggedInUser = await Axios.post("/auth/login", {
+        const loggedInUser = await axios.post("/auth/login", {
             email,
             password
         })
-        // this.props.setUser(loggedInUser.data);
+        this.props.setUser(loggedInUser.data);
     }
 
     render(){
@@ -61,3 +65,17 @@ export default class Login extends Component {
         )
     }
 }
+function mapReduxStateToProps(reduxState){
+  return reduxState;
+}
+
+const mapDispatchToProps = {
+  setUser
+};
+
+const enhancedComponent = connect(
+  mapReduxStateToProps,
+  mapDispatchToProps
+);
+
+export default enhancedComponent(Login);

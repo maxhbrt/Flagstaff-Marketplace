@@ -102,12 +102,12 @@ export default class Shop extends Component {
     });
 
     return (
-      <div>
+      <div className="shop-body">
 
-      <div>
-        <button onClick={() => this.setState({selected: 'greens'})}>GREENS</button>
-        <button onClick={() => this.setState({selected: 'produce'})}>PRODUCE</button>
-        <button onClick={() => this.setState({selected: 'eggs'})}>EGGS</button>
+      <div className='buttons'>
+        <button className='shop-button' onClick={() => this.setState({selected: 'greens'})}>GREENS</button>
+        <button className='shop-button' onClick={() => this.setState({selected: 'produce'})}>PRODUCE</button>
+        <button className='shop-button' onClick={() => this.setState({selected: 'eggs'})}>EGGS</button>
       </div>
       <div>
         <div className="mapped-items">{

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import './register.scss';
-import Header from '../Header/Header';
+import { connect } from "react-redux";
+import { setUser } from '../../Ducks/reducer';
 import {FaCheckCircle} from "react-icons/fa";
 import axios from 'axios';
 
-export default class Register extends Component {
+class Register extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -24,7 +25,7 @@ export default class Register extends Component {
         password,
         address
       });
-      // this.props.setUser(registeredUser.data)
+      this.props.setUser(registeredUser.data)
     }
 
 
@@ -109,3 +110,18 @@ export default class Register extends Component {
         )
     }
 }
+
+function mapReduxStateToProps(reduxState){
+  return reduxState;
+}
+
+const mapDispatchToProps = {
+  setUser
+};
+
+const enhancedComponent = connect(
+  mapReduxStateToProps,
+  mapDispatchToProps
+);
+
+export default enhancedComponent(Register);
