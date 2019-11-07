@@ -59,6 +59,12 @@ class Login extends Component {
               }
             />
           </div>
+          <button
+          onClick={e => {
+            e.preventDefault();
+            this.login();
+          }}
+          >LOGIN</button>
                 </form>
            
             </div>

@@ -48,6 +48,9 @@ export default class Header extends Component {
                 <li>
                   <Link to="/register">REGISTER</Link>
                 </li>
+                <li>
+                  Logout
+                </li>
               </div>
             </ul>
           </nav>

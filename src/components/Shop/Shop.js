@@ -3,16 +3,19 @@ import axios from "axios";
 import Card from "./Card";
 import "./shop.scss";
 
+import Loader from "react-loader-spinner";
+import Cart from "../Cart/cart";
+
 export default class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      inventory: [],
       greensInventory: [],
       produceInventory: [],
       eggsInventory: [],
-      selected:''
-
-      
+      selected: "",
+      isLoading: true
     };
 
     this.getAllGreens = this.getAllGreens.bind(this);
@@ -21,19 +24,28 @@ export default class Shop extends Component {
   }
 
   componentDidMount() {
+    this.getAllItems();
     this.getAllGreens();
     this.getAllProduce();
     this.getAllEggs();
+    setTimeout(() => {
+      this.setState({
+        isLoading: false
+      });
+    }, 2000);
   }
 
-  // getAllItems() {
-  //   axios.get("/api/inventory").then(response => {
-  //     this.setState({ inventory: response.data });
-  //   });
-  // }
+  getAllItems() {
+    axios.get("/api/inventory").then(response => {
+      this.setState({ inventory: response.data });
+    });
+  }
   getAllGreens() {
     axios.get("/api/inventory/greens").then(response => {
       this.setState({ greensInventory: response.data });
+    });
+    this.setState({
+      loading: false
     });
   }
 
@@ -49,12 +61,28 @@ export default class Shop extends Component {
     });
   }
 
-  selectGreens(e){
-
-  }
-
   render() {
-    const { greensInventory, produceInventory, eggsInventory } = this.state;
+    const {
+      greensInventory,
+      produceInventory,
+      eggsInventory,
+      inventory
+    } = this.state;
+
+    const allItems = inventory.map(item => {
+      return (
+        <div>
+          <Card
+            key={item.item_id}
+            image={item.image}
+            item_name={item.item_name}
+            farm_name={item.farm_name}
+            description={item.description}
+            price={item.price}
+          />
+        </div>
+      );
+    });
 
     const greenItems = greensInventory.map(item => {
       return (
@@ -102,31 +130,54 @@ export default class Shop extends Component {
     });
 
     return (
-      <div className="shop-body">
-
-      <div className='buttons'>
-        <button className='shop-button' onClick={() => this.setState({selected: 'greens'})}>GREENS</button>
-        <button className='shop-button' onClick={() => this.setState({selected: 'produce'})}>PRODUCE</button>
-        <button className='shop-button' onClick={() => this.setState({selected: 'eggs'})}>EGGS</button>
-      </div>
       <div>
-        <div className="mapped-items">{
-          this.state.selected === "eggs"
-          ?
-          eggItems
-          :
-          (this.state.selected === "produce")
-          ?
-          produceItems
-          :(
-          this.state.selected === "greens")
-          ?
-          greenItems
-          :<p>Select a category</p>
-          
-          
-        }</div>
-      </div>
+        <div className="cart-comp">
+          <Cart />
+        </div>
+
+        <div className="buttons">
+          <button
+            className="shop-button"
+            onClick={() => this.setState({ selected: "greens" })}
+          >
+            GREENS
+          </button>
+          <button
+            className="shop-button"
+            onClick={() => this.setState({ selected: "produce" })}
+          >
+            PRODUCE
+          </button>
+          <button
+            className="shop-button"
+            onClick={() => this.setState({ selected: "eggs" })}
+          >
+            EGGS
+          </button>
+        </div>
+        <div className="shop-body">
+          {this.state.isLoading ? (
+            <Loader
+              className="loader"
+              type="BallTriangle"
+              width={100}
+              height={100}
+              color="pink"
+            />
+          ) : (
+            <div className="all-items">
+              <div className="mapped-items">
+                {this.state.selected === "eggs"
+                  ? eggItems
+                  : this.state.selected === "produce"
+                  ? produceItems
+                  : this.state.selected === "greens"
+                  ? greenItems
+                  : allItems}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
