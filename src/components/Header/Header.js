@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { FaSun } from "react-icons/fa";
 import { TiThMenu } from "react-icons/ti";
+import { connect } from "react-redux";
+import { setUser } from "../../Ducks/reducer";
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import axios from "axios";
 
-export default class Header extends Component {
+class Header extends Component {
   constructor() {
     super();
     this.state = {
@@ -48,7 +51,12 @@ export default class Header extends Component {
                 <li>
                   <Link to="/register">REGISTER</Link>
                 </li>
-                <li>
+                <li onClick={() => {
+                  axios.delete("/auth/logout").then(() =>{
+                    this.props.setUser(null);
+                    
+                  })
+                }} >
                   Logout
                 </li>
               </div>
@@ -59,3 +67,17 @@ export default class Header extends Component {
     );
   }
 }
+
+function mapReduxStateToProps(reduxState) {
+  return reduxState;
+}
+const mapDispatchToProps = {
+  setUser
+};
+
+const invokedConnect = connect(
+  mapReduxStateToProps,
+  mapDispatchToProps
+);
+
+export default invokedConnect(withRouter(Header));

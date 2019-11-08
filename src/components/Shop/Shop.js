@@ -79,6 +79,7 @@ export default class Shop extends Component {
             farm_name={item.farm_name}
             description={item.description}
             price={item.price}
+            
           />
         </div>
       );
@@ -86,7 +87,7 @@ export default class Shop extends Component {
 
     const greenItems = greensInventory.map(item => {
       return (
-        <div>
+        <div >
           <Card
             key={item.item_id}
             image={item.image}

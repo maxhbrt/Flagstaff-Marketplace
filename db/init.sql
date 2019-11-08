@@ -18,8 +18,10 @@ CREATE TABLE inventory(
 );
 
 CREATE TABLE cart(
-    cart_id SERIAL PRIMARY KEY,
-    purchase_date DATE DEFAULT NOW(),
-    user_id INTEGER REFERENCES users(user_id),
-    item_id INTEGER REFERENCES inventory(part_id)
+user_id INTEGER REFERENCES users(user_id),
+item_id INTEGER REFERENCES inventory(item_id)
 );
+
+
+
+

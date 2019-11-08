@@ -24,6 +24,7 @@ class Login extends Component {
             password
         })
         this.props.setUser(loggedInUser.data);
+        console.log(loggedInUser);
     }
 
     render(){
