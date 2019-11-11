@@ -135,7 +135,8 @@ class Shop extends Component {
 
     return (
       <div>
-        {/* <div>{this.props.user.name}</div> */}
+        {this.props.user ? 
+        <div>{this.props.user.name}</div> : null}
         <div className="cart-comp">
           <Cart />
         </div>

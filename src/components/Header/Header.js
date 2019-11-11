@@ -17,7 +17,7 @@ class Header extends Component {
       showLogout:false
     };
     this.toggler = this.toggler.bind(this);
-    this.showLogout = this.showLogout.bind(this);
+   
   }
 
 
@@ -29,11 +29,7 @@ class Header extends Component {
       };
     });
   }
-  showLogout(){
-    if(this.props.user){
-     return this.setState({showLogout:true})
-    }
-  }
+
 
   render() {
     return (
@@ -63,7 +59,7 @@ class Header extends Component {
                   <Link to="/register">REGISTER</Link>
                 </li>
                 <div>
-                {this.state.showLogout ? 
+                {this.props.user ? 
                 <li onClick={() => {
                   axios.delete("/auth/logout").then(() =>{
                     this.props.setUser(null);
