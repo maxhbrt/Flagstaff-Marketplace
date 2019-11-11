@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import axios from "axios";
 import Card from "./Card";
 import "./shop.scss";
-
+import {connect} from "react-redux";
 import Loader from "react-loader-spinner";
 import Cart from "../Cart/cart";
 
-export default class Shop extends Component {
+
+class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      
       inventory: [],
       greensInventory: [],
       produceInventory: [],
@@ -34,6 +36,7 @@ export default class Shop extends Component {
       });
     }, 2000);
   }
+
 
   getAllItems() {
     axios.get("/api/inventory").then(response => {
@@ -132,6 +135,7 @@ export default class Shop extends Component {
 
     return (
       <div>
+        {/* <div>{this.props.user.name}</div> */}
         <div className="cart-comp">
           <Cart />
         </div>
@@ -183,3 +187,5 @@ export default class Shop extends Component {
     );
   }
 }
+const mapStateToRedux = state => {return state}
+export default connect(mapStateToRedux, null)(Shop)

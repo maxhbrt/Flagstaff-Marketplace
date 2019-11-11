@@ -3,6 +3,7 @@ import './login.scss';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { setUser } from '../../Ducks/reducer';
+import {withRouter} from 'react-router-dom';
 
 
 
@@ -12,7 +13,8 @@ class Login extends Component {
         super(props);
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            redirect: false
         }
 
     }
@@ -25,10 +27,14 @@ class Login extends Component {
         })
         this.props.setUser(loggedInUser.data);
         console.log(loggedInUser);
+        if(loggedInUser){
+          this.setState({redirect:true})
+          console.log(this.state.redirect)
+        }
     }
 
     render(){
-        const {email, password} = this.state;
+        const {email, password, redirect} = this.state;
         return(
             <div className='login-body'>
                 <div className='about'>Large scale chemical agriculture is poisoning our soils and our water, and weakening our communities. By buying direct from a family farm you can help put a stop to this unfortunate trend. By buying organic produce from your local farmer, you are working to maintain a healthy environment, a vibrant community, and a strong and sustainable local economy for you and your kids to thrive in. 
@@ -60,10 +66,14 @@ class Login extends Component {
               }
             />
           </div>
-          <button
+          <button className="login-button"
           onClick={e => {
             e.preventDefault();
             this.login();
+            if (setUser(!null))
+            {this.props.history.push('/shop')}
+            
+             
           }}
           >LOGIN</button>
                 </form>
@@ -85,4 +95,4 @@ const enhancedComponent = connect(
   mapDispatchToProps
 );
 
-export default enhancedComponent(Login);
+export default enhancedComponent(withRouter(Login));

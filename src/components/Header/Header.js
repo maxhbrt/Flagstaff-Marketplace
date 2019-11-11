@@ -7,14 +7,20 @@ import "./header.scss";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 
+
 class Header extends Component {
   constructor() {
     super();
     this.state = {
-      toggle: false
+      toggle: false,
+      redirect:false,
+      showLogout:false
     };
     this.toggler = this.toggler.bind(this);
+    this.showLogout = this.showLogout.bind(this);
   }
+
+
 
   toggler() {
     this.setState(prevState => {
@@ -22,6 +28,11 @@ class Header extends Component {
         toggle: !prevState.toggle
       };
     });
+  }
+  showLogout(){
+    if(this.props.user){
+     return this.setState({showLogout:true})
+    }
   }
 
   render() {
@@ -51,14 +62,19 @@ class Header extends Component {
                 <li>
                   <Link to="/register">REGISTER</Link>
                 </li>
+                <div>
+                {this.state.showLogout ? 
                 <li onClick={() => {
                   axios.delete("/auth/logout").then(() =>{
                     this.props.setUser(null);
-                    
+                    if(setUser(null))
+                    {this.props.history.push('/logout')}
+                    console.log(this.props)
                   })
                 }} >
                   Logout
-                </li>
+                </li> : null}
+                </div>
               </div>
             </ul>
           </nav>

@@ -7,10 +7,16 @@ export default class Cart extends Component{
     constructor(props){
         super(props)
         this.state = {
-            cartItems:[],
-            cartTotal:0,
-            tax:0,
-            sub:0 
+            cart: [
+                {
+                    key:0,
+                    item_name:"",
+                    farm_name:"",
+                    price:0,
+
+                }
+
+            ]
         }
     }
 

@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { setUser } from '../../Ducks/reducer';
 import {FaCheckCircle} from "react-icons/fa";
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
+
 
 class Register extends Component {
     constructor(props){
@@ -12,7 +14,8 @@ class Register extends Component {
             email: "",
             password: "",
             name:"",
-            address:""
+            address:"",
+            redirect: false
             
         };
     }
@@ -26,12 +29,18 @@ class Register extends Component {
         address
       });
       this.props.setUser(registeredUser.data)
+      if(registeredUser){
+        this.setState({
+          redirect:true
+        })
+      }
+  
     }
 
 
 
     render(){
-        const { email, name, password, address} =  this.state; 
+        const { email, name, password, address, redirect} =  this.state; 
         return(
             <div>
                 
@@ -96,7 +105,9 @@ class Register extends Component {
           <button onClick={ e => {
             e.preventDefault();
             this.register();
-            
+            if (setUser(!null))
+            {this.props.history.push('/shop')}
+          
           }}>
 
           <FaCheckCircle size={40} 
@@ -124,4 +135,4 @@ const enhancedComponent = connect(
   mapDispatchToProps
 );
 
-export default enhancedComponent(Register);
+export default enhancedComponent(withRouter(Register));
