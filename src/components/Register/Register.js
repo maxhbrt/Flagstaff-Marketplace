@@ -30,17 +30,16 @@ class Register extends Component {
       });
       this.props.setUser(registeredUser.data)
       if(registeredUser){
-        this.setState({
-          redirect:true
-        })
+        this.props.history.push('/shop')
       }
+    
   
     }
 
 
 
     render(){
-        const { email, name, password, address, redirect} =  this.state; 
+        const { email, name, password, address } =  this.state; 
         return(
             <div>
                 
@@ -105,9 +104,6 @@ class Register extends Component {
           <button onClick={ e => {
             e.preventDefault();
             this.register();
-            if (setUser(!null))
-            {this.props.history.push('/shop')}
-          
           }}>
 
           <FaCheckCircle size={40} 

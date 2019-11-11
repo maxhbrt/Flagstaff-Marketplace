@@ -26,11 +26,10 @@ class Login extends Component {
             password
         })
         this.props.setUser(loggedInUser.data);
+        if (loggedInUser)
+            {this.props.history.push('/shop')}
         console.log(loggedInUser);
-        if(loggedInUser){
-          this.setState({redirect:true})
-          console.log(this.state.redirect)
-        }
+  
     }
 
     render(){
@@ -69,9 +68,8 @@ class Login extends Component {
           <button className="login-button"
           onClick={e => {
             e.preventDefault();
-            this.login();
-            if (setUser(!null))
-            {this.props.history.push('/shop')}
+            this.login()
+            
             
              
           }}

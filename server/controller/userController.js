@@ -14,6 +14,7 @@ module.exports = {
         const [newUser] = await db.create_user([email, hashedPassword, name, address]);
         //   req.session.user = newUser[0]
         req.session.user = newUser;
+        console.log(req.session.user)
         res.status(200).send(req.session.user);
       }
     },
