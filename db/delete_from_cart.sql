@@ -1,0 +1,1 @@
+DELETE * FROM cart where item_id = $2;

@@ -25,21 +25,30 @@ class Cart extends Component{
 
 
     
-    getCart(){
-        axios.get("/api/getcart:id").then(response => {
+    getCart(id){
+        axios.get(`/api/getcart/${id}`).then(response => {
             this.setState({ cart: response.data });
           });  
     }
 
-
+ 
 
 
 
 
 
     render(){
+        console.log(this.props.cartItems)
         const mappedcartItems = this.props.cartItems.map(item => {
-            return <div>{item.item_name}</div>
+            return( <div className='cart-item'>
+                    <div>{item.item_name}</div>
+                    <div>{item.farm_name}</div>
+                    <div>{item.quantity}</div>
+                    <div>{item.price}</div>
+                    <button onClick={() => 
+                    this.props.updateQuantity(item.item_id)
+                    } >add</button>
+                    </div>)
         })
         return(
             <div className='cart-body'>
@@ -57,5 +66,5 @@ class Cart extends Component{
     }
 
 }   
-  
-export default Cart
+const mapStateToRedux = state => {return state}
+export default connect(mapStateToRedux)(Cart)

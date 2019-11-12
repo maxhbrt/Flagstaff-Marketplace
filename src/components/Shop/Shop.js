@@ -26,6 +26,7 @@ class Shop extends Component {
     this.getAllGreens = this.getAllGreens.bind(this);
     this.getAllProduce = this.getAllProduce.bind(this);
     this.getAllEggs = this.getAllEggs.bind(this);
+    this.updateQuantity = this.updateQuantity.bind(this);
   }
 
 
@@ -74,6 +75,15 @@ class Shop extends Component {
       this.setState({ eggsInventory: response.data });
     });
   }
+
+  updateQuantity(item_id){
+    const user_id = this.props.user.user_id;
+    console.log(4444, typeof item_id, item_id)
+    axios.put(`/api/updatequantity/${item_id}`, {user_id}).then(response => {
+        this.setState({ cart: response.data });
+    })
+    console.log(this.state.cart)
+}
 
   render() {
     const {
@@ -198,7 +208,7 @@ class Shop extends Component {
           )}
   {this.props.user ?
         <div className="cart-comp">
-          <Cart cartItems={this.state.cart}/>
+          <Cart updateQuantity={this.updateQuantity} cartItems={this.state.cart}/>
         </div>: null} 
 
         </div>
