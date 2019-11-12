@@ -8,10 +8,8 @@ module.exports = {
 	getCart: async (req, res, next) => {
 		const db = req.app.get("db");
 		const { id } = req.params;
-		const cartItems = await db.get_cart([id]);
-		const itemIds = cartItems.map(item => {
-			return item.item_id;
-		});
-		res.status(200).send(itemIds);
+		const cartItems = await db.join(id);
+	
+		res.status(200).send(cartItems);
 	} 
 }

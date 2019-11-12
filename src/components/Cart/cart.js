@@ -26,32 +26,30 @@ class Cart extends Component{
 
     
     getCart(){
-        axios.get("/api/getcart").then(response => {
+        axios.get("/api/getcart:id").then(response => {
             this.setState({ cart: response.data });
           });  
     }
 
 
 
-addToCart = async (user_id, item_id) => {
-  const addedCart = await axios.post('/api/addtocart', {user_id, item_id})
-  this.setState({
-      cart: addedCart.data
-  })
-}
 
 
 
 
     render(){
+        const mappedcartItems = this.props.cartItems.map(item => {
+            return <div>{item.item_name}</div>
+        })
         return(
             <div className='cart-body'>
              <div className="header">
                  <FaShoppingCart/>
                  <div>TOTAL: $20.00</div>
+                 
              </div>
              <div>
-                 {this.state.cart}
+                 {mappedcartItems}
              </div>
              <button className="checkout">CHECKOUT</button>
             </div>

@@ -19,7 +19,8 @@ class Shop extends Component {
       eggsInventory: [],
       selected: "",
       isLoading: true,
-      products:[]
+      products:[],
+      cart:[]
     };
 
     this.getAllGreens = this.getAllGreens.bind(this);
@@ -28,7 +29,12 @@ class Shop extends Component {
   }
 
 
-
+  addToCart = async (user_id, item_id) => {
+    const addedCart = await axios.post('/api/addtocart', {user_id, item_id})
+    this.setState({
+        cart: addedCart.data
+    })
+  }
 
   componentDidMount() {
     this.getAllItems();
@@ -81,6 +87,7 @@ class Shop extends Component {
       return (
         <div>
           <Card
+          addToCart={this.addToCart}
             item_id={item.item_id}
             image={item.image}
             item_name={item.item_name}
@@ -191,7 +198,7 @@ class Shop extends Component {
           )}
   {this.props.user ?
         <div className="cart-comp">
-          <Cart />
+          <Cart cartItems={this.state.cart}/>
         </div>: null} 
 
         </div>
