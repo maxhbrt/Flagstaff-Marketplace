@@ -5,6 +5,7 @@ import "./shop.scss";
 import {connect} from "react-redux";
 import Loader from "react-loader-spinner";
 import Cart from "../Cart/cart";
+import {addToCart} from '../../Ducks/reducer'
 
 
 class Shop extends Component {
@@ -17,13 +18,17 @@ class Shop extends Component {
       produceInventory: [],
       eggsInventory: [],
       selected: "",
-      isLoading: true
+      isLoading: true,
+      products:[]
     };
 
     this.getAllGreens = this.getAllGreens.bind(this);
     this.getAllProduce = this.getAllProduce.bind(this);
     this.getAllEggs = this.getAllEggs.bind(this);
   }
+
+
+
 
   componentDidMount() {
     this.getAllItems();
@@ -47,9 +52,9 @@ class Shop extends Component {
     axios.get("/api/inventory/greens").then(response => {
       this.setState({ greensInventory: response.data });
     });
-    this.setState({
-      loading: false
-    });
+    // this.setState({
+    //   loading: false
+    // });
   }
 
   getAllProduce() {
@@ -76,12 +81,13 @@ class Shop extends Component {
       return (
         <div>
           <Card
-            key={item.item_id}
+            item_id={item.item_id}
             image={item.image}
             item_name={item.item_name}
             farm_name={item.farm_name}
             description={item.description}
             price={item.price}
+            addToCart={this.addToCart}
             
           />
         </div>
@@ -137,21 +143,20 @@ class Shop extends Component {
       <div>
         {this.props.user ? 
         <div>{this.props.user.name}</div> : null}
-        {this.props.user ?
-        <div className="cart-comp">
-          <Cart />
-        </div>: null}
+
 
         <div className="buttons">
           <button
             className="shop-button"
-            onClick={() => this.setState({ selected: "greens" })}
+            onClick={() => {
+    console.log("SELECTED: ",this.state.selected)
+              this.setState({ selected: "greens" })}}
           >
             GREENS
           </button>
           <button
             className="shop-button"
-            onClick={() => this.setState({ selected: "produce" })}
+            onClick={() => this.setState({ selected: "produce" }) }
           >
             PRODUCE
           </button>
@@ -184,10 +189,15 @@ class Shop extends Component {
               </div>
             </div>
           )}
+  {this.props.user ?
+        <div className="cart-comp">
+          <Cart />
+        </div>: null} 
+
         </div>
       </div>
     );
   }
 }
 const mapStateToRedux = state => {return state}
-export default connect(mapStateToRedux, null)(Shop)
+export default connect(mapStateToRedux, addToCart)(Shop)

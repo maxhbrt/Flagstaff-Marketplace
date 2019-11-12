@@ -42,8 +42,8 @@ app.post("/auth/login", login);
 app.get("/auth/user_session", userSession);
 app.delete("/auth/logout", logout);
 
-// app.get("/api/getcart/:id",getCart);
-// app.post("/api/addtocart",addToCart);
+app.get("/api/getcart",getCart);
+app.post("/api/addtocart",addToCart);
 
 app.get("/api/inventory", (req, res, next) => {
   const db = req.app.get("db");

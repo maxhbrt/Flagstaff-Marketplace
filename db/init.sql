@@ -22,6 +22,10 @@ user_id INTEGER REFERENCES users(user_id),
 item_id INTEGER REFERENCES inventory(item_id)
 );
 
+Select * from inventory
+join cart
+On (cart.item_id = inventory.item_id)
+Where user_id = 1;
 
 
 
