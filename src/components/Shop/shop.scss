@@ -35,6 +35,8 @@
 	align-items: center;
     align-content: stretch;  
     margin-left: 20px;
+    margin-right: 300px;
+    z-index: 1;
 }
 
 .shop-body{
@@ -60,4 +62,6 @@ margin-bottom: 300px;
 
 .all-items{
     margin-right: 0%;
+    height: auto;
+    // z-index: -1;
 }

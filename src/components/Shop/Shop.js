@@ -20,7 +20,8 @@ class Shop extends Component {
       selected: "",
       isLoading: true,
       products:[],
-      cart:[]
+      cart:[],
+      ids:[]
     };
 
     this.getAllGreens = this.getAllGreens.bind(this);
@@ -35,6 +36,14 @@ class Shop extends Component {
     this.setState({
         cart: addedCart.data
     })
+    let ids = this.state.cart.map(item =>{
+      return item.item_id
+
+    })
+    this.setState({
+      ids
+    })
+    console.log('fuck')
   }
 
   componentDidMount() {
@@ -97,6 +106,8 @@ class Shop extends Component {
       return (
         <div>
           <Card
+          updateQuantity={this.updateQuantity}
+          ids={this.state.ids}
           addToCart={this.addToCart}
             item_id={item.item_id}
             image={item.image}
@@ -115,12 +126,14 @@ class Shop extends Component {
       return (
         <div >
           <Card
+          addToCart={this.addToCart}
             key={item.item_id}
             image={item.image}
             item_name={item.item_name}
             farm_name={item.farm_name}
             description={item.description}
             price={item.price}
+            addToCart={this.addToCart}
           />
         </div>
       );
@@ -130,12 +143,14 @@ class Shop extends Component {
       return (
         <div>
           <Card
+          addToCart={this.addToCart}
             key={item.item_id}
             image={item.image}
             item_name={item.item_name}
             farm_name={item.farm_name}
             description={item.description}
             price={item.price}
+            addToCart={this.addToCart}
           />
         </div>
       );
@@ -145,12 +160,14 @@ class Shop extends Component {
       return (
         <div>
           <Card
+          addToCart={this.addToCart}
             key={item.item_id}
             image={item.image}
             item_name={item.item_name}
             farm_name={item.farm_name}
             description={item.description}
             price={item.price}
+            addToCart={this.addToCart}
           />
         </div>
       );

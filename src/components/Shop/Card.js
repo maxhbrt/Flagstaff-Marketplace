@@ -7,6 +7,11 @@ import {connect} from 'react-redux';
 class Card extends Component{
     constructor(props){
         super(props)
+        this.state = {
+            cartIds:[]
+
+    }
+
     }
 
 
@@ -19,6 +24,7 @@ class Card extends Component{
 
 
 render(){
+    console.log(this.props)
     const { item_id, item_name, price, cat, farm_name, description, image, addFunc } = this.props;
     return(
         <div key={item_id} className="card-container" >
@@ -28,10 +34,20 @@ render(){
             <h3>{description}</h3>
             <h2>{price}</h2>
             <IoIosAddCircle size={30}
-            onClick={() => 
-            this.props.addToCart(this.props.user.user_id, item_id)
+            onClick={() => {this.props.ids.includes(item_id) ? 
+                this.props.updateQuantity(item_id) :
+                this.props.addToCart(this.props.user.user_id, item_id)
+            }}
+
+
+
+
+
+
+            // onClick={() => 
+            // this.props.addToCart(this.props.user.user_id, item_id)
             
-            }
+            // }
             />
 
         </div>
