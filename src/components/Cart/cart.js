@@ -11,6 +11,8 @@ class Cart extends Component{
         super(props)
         this.state = {
             cart:[]
+            
+           
        
         
     }
@@ -23,7 +25,7 @@ class Cart extends Component{
     }
   
 
-
+    
     
     getCart(id){
         axios.get(`/api/getcart/${id}`).then(response => {
@@ -38,23 +40,25 @@ class Cart extends Component{
 
 
     render(){
+  
         console.log(this.props.cartItems)
         const mappedcartItems = this.props.cartItems.map(item => {
             return( <div className='cart-item'>
                     <div>{item.item_name}</div>
                     <div>{item.farm_name}</div>
                     <div>{item.quantity}</div>
-                    <div>{item.price}</div>
-                    <button onClick={() => 
-                    this.props.updateQuantity(item.item_id)
-                    } >add</button>
-                    </div>)
+                    <div >{item.price * item.quantity}</div>
+                  
+                    </div>
+                    
+                    )
+                    
         })
         return(
             <div className='cart-body'>
              <div className="header">
                  <FaShoppingCart/>
-                 <div>TOTAL: $20.00</div>
+                 <div>TOTAL: {this.props.total}</div>
                  
              </div>
              <div>

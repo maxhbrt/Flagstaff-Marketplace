@@ -35,9 +35,16 @@ render(){
             <h2>{price}</h2>
             <IoIosAddCircle size={30}
             onClick={() => {this.props.ids.includes(item_id) ? 
-                this.props.updateQuantity(item_id) :
-                this.props.addToCart(this.props.user.user_id, item_id)
-            }}
+                this.props.updateQuantity(item_id, price)
+               
+                :
+                
+                
+                this.props.addToCart(this.props.user.user_id, item_id, price)
+                
+            }
+            
+            }
 
 
 

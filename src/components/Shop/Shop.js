@@ -2,26 +2,25 @@ import React, { Component } from "react";
 import axios from "axios";
 import Card from "./Card";
 import "./shop.scss";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import Loader from "react-loader-spinner";
 import Cart from "../Cart/cart";
-import {addToCart} from '../../Ducks/reducer'
-
+import { addToCart } from "../../Ducks/reducer";
 
 class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
       inventory: [],
       greensInventory: [],
       produceInventory: [],
       eggsInventory: [],
       selected: "",
       isLoading: true,
-      products:[],
-      cart:[],
-      ids:[]
+      products: [],
+      cart: [],
+      ids: [],
+      cartTotal: 0
     };
 
     this.getAllGreens = this.getAllGreens.bind(this);
@@ -30,21 +29,22 @@ class Shop extends Component {
     this.updateQuantity = this.updateQuantity.bind(this);
   }
 
-
-  addToCart = async (user_id, item_id) => {
-    const addedCart = await axios.post('/api/addtocart', {user_id, item_id})
+  addToCart = async (user_id, item_id, price) => {
+    const addedCart = await axios.post("/api/addtocart", { user_id, item_id });
     this.setState({
-        cart: addedCart.data
-    })
-    let ids = this.state.cart.map(item =>{
-      return item.item_id
-
-    })
+      cart: addedCart.data
+    });
+    let ids = this.state.cart.map(item => {
+      return item.item_id;
+    });
     this.setState({
       ids
-    })
-    console.log('fuck')
-  }
+    });
+    this.setState({
+      cartTotal: this.state.cartTotal += parseFloat(price)
+    });
+    console.log(this.state.cartTotal);
+  };
 
   componentDidMount() {
     this.getAllItems();
@@ -57,7 +57,6 @@ class Shop extends Component {
       });
     }, 2000);
   }
-
 
   getAllItems() {
     axios.get("/api/inventory").then(response => {
@@ -85,14 +84,16 @@ class Shop extends Component {
     });
   }
 
-  updateQuantity(item_id){
+  updateQuantity(item_id, price) {
     const user_id = this.props.user.user_id;
-    console.log(4444, typeof item_id, item_id)
-    axios.put(`/api/updatequantity/${item_id}`, {user_id}).then(response => {
-        this.setState({ cart: response.data });
-    })
-    console.log(this.state.cart)
-}
+    console.log(4444, typeof item_id, item_id);
+    axios.put(`/api/updatequantity/${item_id}`, { user_id }).then(response => {
+      this.setState({ cart: response.data });
+    });
+    this.setState({
+      cartTotal: (this.state.cartTotal += parseFloat(price))
+    });
+  }
 
   render() {
     const {
@@ -106,9 +107,10 @@ class Shop extends Component {
       return (
         <div>
           <Card
-          updateQuantity={this.updateQuantity}
-          ids={this.state.ids}
-          addToCart={this.addToCart}
+            calcTotal={this.calcTotal}
+            updateQuantity={this.updateQuantity}
+            ids={this.state.ids}
+            addToCart={this.addToCart}
             item_id={item.item_id}
             image={item.image}
             item_name={item.item_name}
@@ -116,7 +118,6 @@ class Shop extends Component {
             description={item.description}
             price={item.price}
             addToCart={this.addToCart}
-            
           />
         </div>
       );
@@ -124,9 +125,9 @@ class Shop extends Component {
 
     const greenItems = greensInventory.map(item => {
       return (
-        <div >
+        <div>
           <Card
-          addToCart={this.addToCart}
+            addToCart={this.addToCart}
             key={item.item_id}
             image={item.image}
             item_name={item.item_name}
@@ -143,7 +144,7 @@ class Shop extends Component {
       return (
         <div>
           <Card
-          addToCart={this.addToCart}
+            addToCart={this.addToCart}
             key={item.item_id}
             image={item.image}
             item_name={item.item_name}
@@ -160,7 +161,7 @@ class Shop extends Component {
       return (
         <div>
           <Card
-          addToCart={this.addToCart}
+            addToCart={this.addToCart}
             key={item.item_id}
             image={item.image}
             item_name={item.item_name}
@@ -175,22 +176,21 @@ class Shop extends Component {
 
     return (
       <div>
-        {this.props.user ? 
-        <div>{this.props.user.name}</div> : null}
-
+        {this.props.user ? <div>{this.props.user.name}</div> : null}
 
         <div className="buttons">
           <button
             className="shop-button"
             onClick={() => {
-    console.log("SELECTED: ",this.state.selected)
-              this.setState({ selected: "greens" })}}
+              console.log("SELECTED: ", this.state.selected);
+              this.setState({ selected: "greens" });
+            }}
           >
             GREENS
           </button>
           <button
             className="shop-button"
-            onClick={() => this.setState({ selected: "produce" }) }
+            onClick={() => this.setState({ selected: "produce" })}
           >
             PRODUCE
           </button>
@@ -223,15 +223,21 @@ class Shop extends Component {
               </div>
             </div>
           )}
-  {this.props.user ?
-        <div className="cart-comp">
-          <Cart updateQuantity={this.updateQuantity} cartItems={this.state.cart}/>
-        </div>: null} 
-
+          {this.props.user ? (
+            <div className="cart-comp">
+              <Cart
+                total={this.state.cartTotal}
+                updateQuantity={this.updateQuantity}
+                cartItems={this.state.cart}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     );
   }
 }
-const mapStateToRedux = state => {return state}
-export default connect(mapStateToRedux, addToCart)(Shop)
+const mapStateToRedux = state => {
+  return state;
+};
+export default connect(mapStateToRedux, addToCart)(Shop);
