@@ -16,12 +16,26 @@ module.exports = {
 		const db = req.app.get("db");
 		const {id} = req.params
 		const { user_id } = req.body
-		console.log('user_id: ' , user_id)
-		console.log('item_id: ', id)
+	
 		const updatedQuan = await db.update_quantity([id, user_id]);
 		res.status(200).send(updatedQuan)
 		
-	}
-	
+	},
+	decQuantity: async (req, res, next) => {
+		const db = req.app.get("db");
+		const {id} = req.params
+		const { user_id } = req.body
 
+		const decQuan = await db.dec_quantity([id, user_id]);
+		res.status(200).send(decQuan)
+},
+	deleteFromCart: async (req, res) => {
+		const { cart_id } = req.params
+		const { user_id } = req.session.user
+		const db = req.app.get("db");
+		const results = await db.delete_from_cart([cart_id, user_id])
+		// .catch(err => console.log(err))
+		res.status(200).send(results)
+
+}
 }

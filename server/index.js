@@ -16,7 +16,9 @@ const {
 const {
  getCart,
  addToCart,
- updateQuantity   
+ updateQuantity,
+ decQuantity,
+ deleteFromCart   
 } = require('./controller/cartContoller');
 
 
@@ -46,6 +48,8 @@ app.delete("/auth/logout", logout);
 app.get("/api/getcart/:id",getCart);
 app.post("/api/addtocart",addToCart);
 app.put("/api/updatequantity/:id", updateQuantity);
+app.put("/api/decquantity/:id", decQuantity);
+app.delete("/api/deletefromcart/:cart_id/", deleteFromCart);
 
 app.get("/api/inventory", (req, res, next) => {
   const db = req.app.get("db");

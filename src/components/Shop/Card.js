@@ -45,17 +45,8 @@ render(){
             }
             
             }
-
-
-
-
-
-
-            // onClick={() => 
-            // this.props.addToCart(this.props.user.user_id, item_id)
+/>
             
-            // }
-            />
 
         </div>
     )

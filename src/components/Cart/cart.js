@@ -40,7 +40,7 @@ class Cart extends Component{
 
 
     render(){
-  
+  console.log(this.state.cart)
         console.log(this.props.cartItems)
         const mappedcartItems = this.props.cartItems.map(item => {
             return( <div className='cart-item'>
@@ -48,10 +48,14 @@ class Cart extends Component{
                     <div>{item.farm_name}</div>
                     <div>{item.quantity}</div>
                     <div >{item.price * item.quantity}</div>
-                  
+                    <button onClick={() => {item.quantity === 1 ?
+                this.props.deleteFromCart( item.cart_id, item.price) :
+                this.props.decQuantity(item.item_id, item.price)
+                }} >X</button>
                     </div>
                     
                     )
+                    
                     
         })
         return(

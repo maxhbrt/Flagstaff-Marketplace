@@ -27,6 +27,9 @@ class Shop extends Component {
     this.getAllProduce = this.getAllProduce.bind(this);
     this.getAllEggs = this.getAllEggs.bind(this);
     this.updateQuantity = this.updateQuantity.bind(this);
+    this.decQuantity = this.decQuantity.bind(this);
+    this.deleteFromCart = this.deleteFromCart.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   addToCart = async (user_id, item_id, price) => {
@@ -43,10 +46,29 @@ class Shop extends Component {
     this.setState({
       cartTotal: this.state.cartTotal += parseFloat(price)
     });
-    console.log(this.state.cartTotal);
+    console.log(this.state.cart);
   };
 
+  deleteFromCart = async (  cart_id, price) => {
+   
+    const deletedCart = await axios.delete(`/api/deletefromcart/${cart_id}/`);
+    this.setState({
+      cart: deletedCart.data
+    })
+    let ids = this.state.cart.map(item => {
+      return item.item_id;
+    });
+
+    this.setState({
+      
+      ids,
+      cartTotal: this.state.cartTotal -= parseFloat(price)
+    });
+    
+  }
+
   componentDidMount() {
+    
     this.getAllItems();
     this.getAllGreens();
     this.getAllProduce();
@@ -86,7 +108,7 @@ class Shop extends Component {
 
   updateQuantity(item_id, price) {
     const user_id = this.props.user.user_id;
-    console.log(4444, typeof item_id, item_id);
+    
     axios.put(`/api/updatequantity/${item_id}`, { user_id }).then(response => {
       this.setState({ cart: response.data });
     });
@@ -95,7 +117,18 @@ class Shop extends Component {
     });
   }
 
+  decQuantity(item_id, price) {
+    const user_id = this.props.user.user_id;
+    axios.put(`/api/decquantity/${item_id}`, { user_id }).then(response => {
+      this.setState({ cart: response.data });
+    })
+    this.setState({
+      cartTotal: this.state.cartTotal -= parseFloat(price)
+    })
+  }
+
   render() {
+    console.log(this.state.cart);
     const {
       greensInventory,
       produceInventory,
@@ -107,6 +140,7 @@ class Shop extends Component {
       return (
         <div>
           <Card
+            
             calcTotal={this.calcTotal}
             updateQuantity={this.updateQuantity}
             ids={this.state.ids}
@@ -182,7 +216,7 @@ class Shop extends Component {
           <button
             className="shop-button"
             onClick={() => {
-              console.log("SELECTED: ", this.state.selected);
+              
               this.setState({ selected: "greens" });
             }}
           >
@@ -226,6 +260,8 @@ class Shop extends Component {
           {this.props.user ? (
             <div className="cart-comp">
               <Cart
+              deleteFromCart={this.deleteFromCart}
+              decQuantity={this.decQuantity}
                 total={this.state.cartTotal}
                 updateQuantity={this.updateQuantity}
                 cartItems={this.state.cart}
