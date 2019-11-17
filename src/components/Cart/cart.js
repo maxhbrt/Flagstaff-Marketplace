@@ -5,6 +5,8 @@ import {FaShoppingCart} from "react-icons/fa"
 import {getCart} from '../../Ducks/reducer';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import StripeCheckout from 'react-stripe-checkout';
+import { toast } from "react-toastify";
 
 class Cart extends Component{
     constructor(props){
@@ -35,19 +37,30 @@ class Cart extends Component{
 
  
 
+    async handleToken(token, addresses) {
+        const response = await axios.post(
+          "/api/checkout",
+          { token, }
+        );
+        const { status } = response.data;
+        console.log("Response:", response.data);
+        if (status === "success") {
+          toast("Success! Check email for details", { type: "success" });
+        } else {
+          toast("Something went wrong", { type: "error" });
+        }
+      }
 
-
-
+      
 
     render(){
-  console.log(this.state.cart)
-        console.log(this.props.cartItems)
+
         const mappedcartItems = this.props.cartItems.map(item => {
             return( <div className='cart-item'>
                     <div>{item.item_name}</div>
                     <div>{item.farm_name}</div>
                     <div>{item.quantity}</div>
-                    <div >{item.price * item.quantity}</div>
+                    <div >{(item.price * item.quantity).toFixed(2)}</div>
                     <button onClick={() => {item.quantity === 1 ?
                 this.props.deleteFromCart( item.cart_id, item.price) :
                 this.props.decQuantity(item.item_id, item.price)
@@ -62,13 +75,19 @@ class Cart extends Component{
             <div className='cart-body'>
              <div className="header">
                  <FaShoppingCart/>
-                 <div>TOTAL: {this.props.total}</div>
+                 <div>TOTAL: {this.props.total.toFixed(2)}</div>
                  
              </div>
              <div>
                  {mappedcartItems}
              </div>
-             <button className="checkout">CHECKOUT</button>
+            <StripeCheckout
+            stripeKey=""
+            token={this.handleToken}
+            billingAddress
+            shippingAddress
+            amount={this.props.total.toFixed(2) * 100}
+            />
             </div>
         )
     }
