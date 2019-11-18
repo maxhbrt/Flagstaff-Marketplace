@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const massive = require("massive");
-const stripe = require("stripe")("");
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const uuid = require("uuid/v4");
 
 app.use(express.static(__dirname + "/../build"));
@@ -20,12 +20,13 @@ const {
  addToCart,
  updateQuantity,
  decQuantity,
- deleteFromCart   
+ deleteFromCart,
+ deleteAllCart   
 } = require('./controller/cartContoller');
 
 
 app.use(express.json());
-const { CONNECTION_STRING, SESSION_SECRET, SERVER_PORT } = process.env;
+const { CONNECTION_STRING, SESSION_SECRET, SERVER_PORT} = process.env;
 app.use(
     session({
         secret: SESSION_SECRET,
@@ -52,6 +53,7 @@ app.post("/api/addtocart",addToCart);
 app.put("/api/updatequantity/:id", updateQuantity);
 app.put("/api/decquantity/:id", decQuantity);
 app.delete("/api/deletefromcart/:cart_id/", deleteFromCart);
+app.delete("/api/deleteallcart/", deleteAllCart);
 
 app.get("/api/inventory", (req, res, next) => {
   const db = req.app.get("db");

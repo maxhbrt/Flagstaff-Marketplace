@@ -33,6 +33,7 @@ render(){
             <h3>{farm_name}</h3>
             <h3>{description}</h3>
             <h2>{price}</h2>
+            {!this.props.user ? null:
             <IoIosAddCircle size={30}
             onClick={() => {this.props.ids.includes(item_id) ? 
                 this.props.updateQuantity(item_id, price)
@@ -45,7 +46,7 @@ render(){
             }
             
             }
-/>
+/>}
             
 
         </div>

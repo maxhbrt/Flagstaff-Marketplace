@@ -20,10 +20,13 @@ class Cart extends Component{
     }
 
      this.getCart = this.getCart.bind(this);
+     this.deleteAllCart = this.deleteAllCart.bind(this);
     }
 
     componentDidMount(){
         this.getCart();
+       
+        
     }
   
 
@@ -34,7 +37,23 @@ class Cart extends Component{
             this.setState({ cart: response.data });
           });  
     }
-
+    async deleteAllCart() {
+   
+        const deletedAllCart = await axios.delete(`/api/deleteallcart/`);
+        this.setState({
+          cart: deletedAllCart.data
+        })
+        let ids = this.state.cart.map(item => {
+          return item.item_id;
+        });
+    
+        this.setState({
+          
+          ids,
+          cartTotal: 0
+        });
+        
+      };
  
 
     async handleToken(token, addresses) {
@@ -46,8 +65,10 @@ class Cart extends Component{
         console.log("Response:", response.data);
         if (status === "success") {
           toast("Success! Check email for details", { type: "success" });
+          
         } else {
           toast("Something went wrong", { type: "error" });
+          this.deleteAllCart()
         }
       }
 
@@ -81,13 +102,17 @@ class Cart extends Component{
              <div>
                  {mappedcartItems}
              </div>
-            <StripeCheckout
-            stripeKey=""
+  
+           
+            <StripeCheckout 
+            
+            stripeKey={""}
             token={this.handleToken}
             billingAddress
             shippingAddress
             amount={this.props.total.toFixed(2) * 100}
             />
+      
             </div>
         )
     }

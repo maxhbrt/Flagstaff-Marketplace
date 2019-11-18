@@ -1,3 +1,4 @@
+// require("dotenv").config();
 import React, { Component } from "react";
 import axios from "axios";
 import Card from "./Card";
@@ -65,7 +66,12 @@ class Shop extends Component {
       cartTotal: this.state.cartTotal -= parseFloat(price)
     });
     
-  }
+  };
+
+
+
+
+
 
   componentDidMount() {
     
@@ -161,14 +167,17 @@ class Shop extends Component {
       return (
         <div>
           <Card
-            addToCart={this.addToCart}
-            key={item.item_id}
-            image={item.image}
-            item_name={item.item_name}
-            farm_name={item.farm_name}
-            description={item.description}
-            price={item.price}
-            addToCart={this.addToCart}
+ calcTotal={this.calcTotal}
+ updateQuantity={this.updateQuantity}
+ ids={this.state.ids}
+ addToCart={this.addToCart}
+ item_id={item.item_id}
+ image={item.image}
+ item_name={item.item_name}
+ farm_name={item.farm_name}
+ description={item.description}
+ price={item.price}
+ addToCart={this.addToCart}
           />
         </div>
       );
@@ -178,14 +187,17 @@ class Shop extends Component {
       return (
         <div>
           <Card
-            addToCart={this.addToCart}
-            key={item.item_id}
-            image={item.image}
-            item_name={item.item_name}
-            farm_name={item.farm_name}
-            description={item.description}
-            price={item.price}
-            addToCart={this.addToCart}
+calcTotal={this.calcTotal}
+updateQuantity={this.updateQuantity}
+ids={this.state.ids}
+addToCart={this.addToCart}
+item_id={item.item_id}
+image={item.image}
+item_name={item.item_name}
+farm_name={item.farm_name}
+description={item.description}
+price={item.price}
+addToCart={this.addToCart}
           />
         </div>
       );
@@ -195,14 +207,17 @@ class Shop extends Component {
       return (
         <div>
           <Card
-            addToCart={this.addToCart}
-            key={item.item_id}
-            image={item.image}
-            item_name={item.item_name}
-            farm_name={item.farm_name}
-            description={item.description}
-            price={item.price}
-            addToCart={this.addToCart}
+    calcTotal={this.calcTotal}
+    updateQuantity={this.updateQuantity}
+    ids={this.state.ids}
+    addToCart={this.addToCart}
+    item_id={item.item_id}
+    image={item.image}
+    item_name={item.item_name}
+    farm_name={item.farm_name}
+    description={item.description}
+    price={item.price}
+    addToCart={this.addToCart}
           />
         </div>
       );
@@ -257,8 +272,9 @@ class Shop extends Component {
               </div>
             </div>
           )}
-          {this.props.user ? (
-            <div className="cart-comp">
+          {!this.props.user || this.state.cartTotal === 0  ? 
+               null:
+           ( <div className="cart-comp">
               <Cart
               deleteFromCart={this.deleteFromCart}
               decQuantity={this.decQuantity}
@@ -267,7 +283,7 @@ class Shop extends Component {
                 cartItems={this.state.cart}
               />
             </div>
-          ) : null}
+          ) }
         </div>
       </div>
     );

@@ -37,5 +37,14 @@ module.exports = {
 		// .catch(err => console.log(err))
 		res.status(200).send(results)
 
+},
+deleteAllCart: async (req, res) => {
+	
+	const { user_id } = req.session.user
+	const db = req.app.get("db");
+	const results = await db.delete_all_cart([user_id])
+	// .catch(err => console.log(err))
+	res.status(200).send(results)	
+
 }
 }
