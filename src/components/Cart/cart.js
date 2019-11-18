@@ -82,7 +82,7 @@ class Cart extends Component{
                     <div>{item.farm_name}</div>
                     <div>{item.quantity}</div>
                     <div >{(item.price * item.quantity).toFixed(2)}</div>
-                    <button onClick={() => {item.quantity === 1 ?
+                    <button className="delete" onClick={() => {item.quantity === 1 ?
                 this.props.deleteFromCart( item.cart_id, item.price) :
                 this.props.decQuantity(item.item_id, item.price)
                 }} >X</button>

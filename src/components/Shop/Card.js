@@ -28,13 +28,13 @@ render(){
     const { item_id, item_name, price, cat, farm_name, description, image, addFunc } = this.props;
     return(
         <div key={item_id} className="card-container" >
-            <img src={image}/>
+            <img classname={"pic"} src={image}/>
             <h2>{item_name}</h2>
             <h3>{farm_name}</h3>
             <h3>{description}</h3>
             <h2>{price}</h2>
             {!this.props.user ? null:
-            <IoIosAddCircle size={30}
+            <IoIosAddCircle size={30} className="add"
             onClick={() => {this.props.ids.includes(item_id) ? 
                 this.props.updateQuantity(item_id, price)
                

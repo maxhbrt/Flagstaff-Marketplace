@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import Loader from "react-loader-spinner";
 import Cart from "../Cart/cart";
 import { addToCart } from "../../Ducks/reducer";
+import image from '../Landing/flagmarketplacewhite.png';
+import farmer from './farmer.png'
 
 class Shop extends Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class Shop extends Component {
       greensInventory: [],
       produceInventory: [],
       eggsInventory: [],
-      selected: "",
+      selected: "all goods",
       isLoading: true,
       products: [],
       cart: [],
@@ -144,7 +146,7 @@ class Shop extends Component {
 
     const allItems = inventory.map(item => {
       return (
-        <div>
+        <div className="cards">
           <Card
             
             calcTotal={this.calcTotal}
@@ -224,10 +226,13 @@ addToCart={this.addToCart}
     });
 
     return (
-      <div>
-        {this.props.user ? <div>{this.props.user.name}</div> : null}
+      <div className="whole">
+        {this.props.user ? <div className="greeting">Hello {this.props.user.name}</div> : null}
+        <div className="selected">{this.state.selected}</div>
 
         <div className="buttons">
+        <img className="shop-logo" src={image} alt="logo"/>
+        <div className="sort">SORT BY:</div>
           <button
             className="shop-button"
             onClick={() => {
@@ -250,6 +255,7 @@ addToCart={this.addToCart}
             EGGS
           </button>
         </div>
+          
         <div className="shop-body">
           {this.state.isLoading ? (
             <Loader
@@ -260,7 +266,7 @@ addToCart={this.addToCart}
               color="pink"
             />
           ) : (
-            <div className="all-items">
+            // <div className="all-items">
               <div className="mapped-items">
                 {this.state.selected === "eggs"
                   ? eggItems
@@ -270,22 +276,22 @@ addToCart={this.addToCart}
                   ? greenItems
                   : allItems}
               </div>
-            </div>
+            // </div>
           )}
           {!this.props.user || this.state.cartTotal === 0  ? 
-               null:
-           ( <div className="cart-comp">
+             null : 
+             ( <div  className="cart-comp">
               <Cart
               deleteFromCart={this.deleteFromCart}
               decQuantity={this.decQuantity}
-                total={this.state.cartTotal}
-                updateQuantity={this.updateQuantity}
-                cartItems={this.state.cart}
+              total={this.state.cartTotal}
+              updateQuantity={this.updateQuantity}
+              cartItems={this.state.cart}
               />
             </div>
           ) }
         </div>
-      </div>
+          </div>
     );
   }
 }

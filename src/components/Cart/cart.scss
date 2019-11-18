@@ -13,6 +13,7 @@
    align-items: center;
    align-content: space-around;
    padding-bottom: 10px;
+   font-family: 'Quicksand', sans-serif;
 }
 
 .header{
@@ -42,4 +43,9 @@ height: 10%;
     border-width: 2px;
     border-color: antiquewhite;
     margin: 3px;
+    padding:5px;
+}
+.delete:hover{
+background-color:gold;
+cursor: pointer;
 }

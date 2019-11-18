@@ -2,12 +2,15 @@
     
     height: 100vh;
     display: grid;
-    grid-template-columns: 400px 300px;
+    grid-template-columns: 300px 300px 300px;
     overflow: scroll;
     max-height: 100%;
-    margin-left: 325px;
+    margin-left: 350px;
 }
-
+.aspen{
+    height: 100%;
+    float: left;
+}
 .shop-button{
     border-radius: 15px;
     width: auto;
@@ -23,45 +26,132 @@
     border-color: bisque;
     border-width: 2px;
     margin: 5px;
+    margin-right: 100px;
 
 }
+.shop-button:hover{
+cursor: pointer;
+color:green
+}
 
+.cards{
+  padding-right:0px;  
+}
 .buttons{
     height: 15vh;
     width: 15vw;
+    display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: center;
-    align-content: stretch;  
+	justify-content: center;
+	align-items: flex-start;
+	align-content: stretch; 
     margin-left: 20px;
-    margin-right: 300px;
     z-index: 1;
+   margin-top: 50px;
+    // padding-top: 20px;
+    
+   
 }
 
 .shop-body{
     width: 100vw;
-    height: 70vh;
+    height: 100vh;
     display: flex;
-    flex-direction: row;
-	
-	justify-content: space-around;
-	align-items: center;
-	
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+    align-items: center;
+    position: absolute;
+    align-content: stretch;
+    top: 200px;
+    
+   
+    
 }
 
 .cart-comp{
     height: 30vh;
-    margin-bottom:100px;
-    justify-content: flex-end;
+    margin-bottom:700px;
+    margin-left: 0px;
+   
 }
 .loader{
 // margin-left: 550px;
 margin-bottom: 300px;
 }
 
-.all-items{
-    margin-right: 0%;
-    height: auto;
-    // z-index: -1;
+// .all-items{
+//     margin-right: 0%;
+//     height: auto;
+//     z-index: -1;
+//     width: 1200px;
+    
+// }
+.selected{
+ font-size: 25px; 
+ 
+  padding-top: 20px;
+  font-family: 'Lobster', cursive;
+  text-decoration: underline;
+  font-family: 'Calistoga', cursive;
+  color:rgb(16, 99, 16);
+  margin-top: 20px;
+  
+}
+.sort{
+    font-family: 'Alata', sans-serif; 
+    margin-bottom:15px; 
+    font-size: 20px;  
+}
+.farmer{
+    height: 50%;
+    margin-bottom: 500px;
+}
+.shop-logo{
+    filter: invert(73%) sepia(65%) saturate(250%) hue-rotate(106deg) brightness(107%) contrast(104%);  
+    width: 300px; 
+    height: 80%;
+    margin-bottom: 20px;
+}
+.whole{
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: stretch;
+    align-content: stretch;
+    
+}
+.greeting{
+ padding-top: 5px;   
+ font-family: 'Alata', sans-serif; 
+}
+
+@media (max-width: 700px){
+    .mapped-items{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        // justify-content: space-around;
+        align-items: center;
+        align-content: flex-start;
+        margin-right: 40px;
+        margin-top: 500px;
+    }
+    .shop-body{
+        width: 100vw;
+        height: 60vh;
+        
+    }
+    .buttons{
+        height: 5px;
+        width: 5px;
+       
+        
+    }
+    .all-items{
+        z-index: -1;
+        width: 320px;
+    }
 }
