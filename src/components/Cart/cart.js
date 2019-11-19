@@ -40,6 +40,7 @@ class Cart extends Component{
     async deleteAllCart() {
    
         const deletedAllCart = await axios.delete(`/api/deleteallcart/`);
+       
         this.setState({
           cart: deletedAllCart.data
         })
@@ -64,11 +65,11 @@ class Cart extends Component{
         const { status } = response.data;
         console.log("Response:", response.data);
         if (status === "success") {
-          toast("Success! Check email for details", { type: "success" });
+          // toast("Success! Check email for details", { type: "success" });
           
         } else {
           toast("Something went wrong", { type: "error" });
-          this.deleteAllCart()
+          
         }
       }
 
@@ -106,11 +107,12 @@ class Cart extends Component{
            
             <StripeCheckout 
             
-            stripeKey={""}
+            stripeKey={''}
             token={this.handleToken}
             billingAddress
             shippingAddress
             amount={this.props.total.toFixed(2) * 100}
+            closed={this.deleteAllCart}
             />
       
             </div>

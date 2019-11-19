@@ -5,6 +5,7 @@ import * as farmsData from '../Map/map-data.json';
 
 
 function Map(){
+    
     const [selectedFarm, setSelectedFarm] = useState(null);
 
     return(
@@ -18,6 +19,7 @@ function Map(){
                 lng:farm.properties.coordinates[1]
             }}
             onClick={() => {
+                console.log(farm)
              setSelectedFarm(farm);   
             }}
             />
@@ -47,7 +49,7 @@ function Map(){
     const WrappedMap = withScriptjs(withGoogleMap(Map));
 export default function MyMap(){
         return <div style={{ width: '100vw', height: '100vh'}}>
-            <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry.drawing.places&`}
+            <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry.drawing.places&key=`}
             loadingElement={<div style={{ height: "100%" }}/>}
             containerElement={<div style={{ height: "100%"}}/>}
             mapElement={<div style={{height: "100%"}}/>}
