@@ -33,6 +33,8 @@ class Shop extends Component {
     this.decQuantity = this.decQuantity.bind(this);
     this.deleteFromCart = this.deleteFromCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.deleteAllCart = this.deleteAllCart.bind(this);
+    this.sendOrder = this.sendOrder.bind(this);
   }
 
   addToCart = async (user_id, item_id, price) => {
@@ -134,6 +136,45 @@ class Shop extends Component {
       cartTotal: this.state.cartTotal -= parseFloat(price)
     })
   }
+
+  async deleteAllCart() {
+   
+    await axios.delete(`/api/deleteallcart/`);
+   
+    this.setState({
+      cart: []
+    })
+    let ids = this.state.cart.map(item => {
+      return item.item_id;
+    });
+
+    this.setState({
+      
+      ids,
+      cartTotal: 0
+    });
+    
+  };
+
+
+
+  async sendOrder() {
+    const name = this.props.user.name
+    const email = this.props.user.email
+    const message = JSON.stringify(this.state.cart)
+    const address = this.props.user.address
+  console.log(message)
+      await axios.post("/auth/contact",  {
+         name,
+        email,
+        message,
+        address
+      })
+    
+  }
+
+
+
 
   render() {
     console.log(this.state.cart);
@@ -282,6 +323,8 @@ addToCart={this.addToCart}
              null : 
              ( <div  className="cart-comp">
               <Cart
+              sendOrder={this.sendOrder}
+              deleteAllCart={this.deleteAllCart}
               deleteFromCart={this.deleteFromCart}
               decQuantity={this.decQuantity}
               total={this.state.cartTotal}

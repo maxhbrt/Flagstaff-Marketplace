@@ -5,6 +5,7 @@ const session = require("express-session");
 const massive = require("massive");
 const stripe = require("stripe")('');
 const uuid = require("uuid/v4");
+const nodemailer = require("nodemailer");
 
 app.use(express.static(__dirname + "/../build"));
 
@@ -90,6 +91,51 @@ app.get("/api/inventory/greens", (req, res, next) => {
           console.log(err)
       })
   });
+
+
+
+
+
+  app.post("/auth/contact", (req, res) => {
+    const { name, email, message, address } = req.body;
+    console.log(name, email, message);
+    let transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_NAME,
+        pass: process.env.EMAIL_PASSWORD
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+    let mailOptions = {
+      from: email,
+      to: process.env.EMAIL_NAME,
+      subject: "New Message",
+      html: `<body>
+           <h1>New Message</h1>
+           <ul style=‘list-style-type: none; padding: 0px; font-size: 18px; color: #333; font-family: sans-serif;’>
+               <li>Name: ${name}</li>
+               <li>Email: ${email}</li>
+               <li>Message: ${message} ${address}</li>
+           </ul>
+           <body>`
+    };
+    console.log(mailOptions);
+    transporter.sendMail(mailOptions, function(err, data) {
+      if (err) {
+        console.log("error occurs", err);
+        res.end();
+      } else {
+        console.log("email sent");
+        res.end();
+      }
+    });
+   });
+
+
+
 
 
 

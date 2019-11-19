@@ -20,7 +20,7 @@ class Cart extends Component{
     }
 
      this.getCart = this.getCart.bind(this);
-     this.deleteAllCart = this.deleteAllCart.bind(this);
+    
     }
 
     componentDidMount(){
@@ -37,24 +37,24 @@ class Cart extends Component{
             this.setState({ cart: response.data });
           });  
     }
-    async deleteAllCart() {
+    // async deleteAllCart() {
    
-        const deletedAllCart = await axios.delete(`/api/deleteallcart/`);
+    //     await axios.delete(`/api/deleteallcart/`);
        
-        this.setState({
-          cart: deletedAllCart.data
-        })
-        let ids = this.state.cart.map(item => {
-          return item.item_id;
-        });
+    //     this.setState({
+    //       cart: []
+    //     })
+    //     let ids = this.state.cart.map(item => {
+    //       return item.item_id;
+    //     });
     
-        this.setState({
+    //     this.setState({
           
-          ids,
-          cartTotal: 0
-        });
+    //       ids,
+    //       cartTotal: 0
+    //     });
         
-      };
+    //   };
  
 
     async handleToken(token, addresses) {
@@ -65,14 +65,17 @@ class Cart extends Component{
         const { status } = response.data;
         console.log("Response:", response.data);
         if (status === "success") {
-          // toast("Success! Check email for details", { type: "success" });
+           toast("Success! Check email for details", { type: "success" });
           
         } else {
           toast("Something went wrong", { type: "error" });
           
         }
       }
-
+      sendAndDelete = () => {
+        this.props.sendOrder();
+        this.props.deleteAllCart();
+      }
       
 
     render(){
@@ -112,7 +115,7 @@ class Cart extends Component{
             billingAddress
             shippingAddress
             amount={this.props.total.toFixed(2) * 100}
-            closed={this.deleteAllCart}
+            closed={this.sendAndDelete}
             />
       
             </div>
