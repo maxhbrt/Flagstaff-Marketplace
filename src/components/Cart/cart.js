@@ -110,7 +110,7 @@ class Cart extends Component{
            
             <StripeCheckout 
             
-            stripeKey={''}
+            stripeKey={process.env.REACT_APP_STRIPE_KEY}
             token={this.handleToken}
             billingAddress
             shippingAddress

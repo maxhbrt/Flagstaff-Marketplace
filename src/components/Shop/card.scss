@@ -14,3 +14,10 @@ padding-right: 0px;
     cursor: pointer;
     color: gold;
 }
+
+@media(max-width:700px){
+    .card-container{
+        margin-bottom: 0.5rem;
+        width: 200px;
+    }
+}

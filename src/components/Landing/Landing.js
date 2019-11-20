@@ -12,10 +12,10 @@ function Landing() {
       <div className="landing">
           <img className="logo" src={image} alt="logo"/>
         {/* Flagstaff Marketplace */}
+         <div className="farm-table">Order goods from local farms to your doorstep</div>
         <Link duration={700} smooth={true} to="middle">
           <TiArrowDown />
         </Link>
-
       </div>
       <Middle/>
       <div>

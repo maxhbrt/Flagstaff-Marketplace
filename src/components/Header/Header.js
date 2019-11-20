@@ -45,9 +45,7 @@ class Header extends Component {
           <nav className={this.state.toggle ? "show" : ""}>
             <ul>
               <div className={!this.state.toggle ? "list-of-serv" : ""}>
-                <li>
-                  <a href="#/services">ABOUT</a>
-                </li>
+              
 
                 <li>
                   <Link to="/map">FIND</Link>

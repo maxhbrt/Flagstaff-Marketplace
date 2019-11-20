@@ -49,3 +49,11 @@ height: 10%;
 background-color:gold;
 cursor: pointer;
 }
+
+@media (max-width:700px){
+.cart-body{
+width: 40vw;
+margin-top: 20px;
+}
+
+}

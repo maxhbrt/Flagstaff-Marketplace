@@ -47,11 +47,18 @@
 .logo {
     width: 500px;
     height: auto;
+    margin-bottom: 50px;
 }
+.farm-table{
+    font-size: 35px;
+    color:pink;
+  }
 
 @media (max-width: 700px) {
     .logo{
         width: 90%;
     }
-   
+   .farm-table{
+       display: none;
+   }
 }

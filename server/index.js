@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const massive = require("massive");
-const stripe = require("stripe")('');
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const uuid = require("uuid/v4");
 const nodemailer = require("nodemailer");
 

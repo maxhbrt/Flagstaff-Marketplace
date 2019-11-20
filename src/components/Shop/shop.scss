@@ -133,30 +133,86 @@ margin-bottom: 300px;
  font-family: 'Alata', sans-serif; 
 }
 
-@media (max-width: 700px){
-    .mapped-items{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        // justify-content: space-around;
-        align-items: center;
-        align-content: flex-start;
-        margin-right: 40px;
-        margin-top: 500px;
-    }
-    .shop-body{
-        width: 100vw;
-        height: 60vh;
+// @media (max-width: 700px){
+//     .mapped-items{
+//         display: flex;
+//         flex-direction: column;
+//         flex-wrap: nowrap;
+//         // justify-content: space-around;
+//         align-items: center;
+//         align-content: flex-start;
+//         margin-right: 40px;
+//         margin-top: 500px;
+//     }
+//     .shop-body{
+//         width: 100vw;
+//         height: 60vh;
         
-    }
-    .buttons{
-        height: 5px;
-        width: 5px;
+//     }
+//     .buttons{
+//         height: 5px;
+//         width: 5px;
        
         
+//     }
+//     .all-items{
+//         z-index: -1;
+//         width: 320px;
+//     }
+// }
+
+@media (max-width:700px){
+ 
+    .mapped-items{
+        height: 78vh;
+        display: flex;
+	flex-direction: column-reverse;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+    align-content: stretch;
+margin-top:0px;
+    margin-left:0px;
+    
+    
+//    padding-bottom: 20px;
     }
-    .all-items{
-        z-index: -1;
-        width: 320px;
+    .shop-logo{
+        display: none;
     }
+    .whole{
+        display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+    }
+    .buttons{
+        display: none;
+    }
+    .shop-body{
+        height: 62vh;
+
+    
+    }
+
+
+    .sort{
+        margin-bottom: 0px;
+    }
+    .cart-comp{
+        margin-bottom: 360px;
+        margin-top:0px;
+        margin-left: 4px;
+     
+    }
+  .loader{
+      margin-top: 0px;
+  }
+  .selected{
+      margin-top: 2px;
+  }
+
+
 }

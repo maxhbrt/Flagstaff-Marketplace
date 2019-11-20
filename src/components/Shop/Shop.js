@@ -267,6 +267,7 @@ addToCart={this.addToCart}
     });
 
     return (
+      <div className="for-media">
       <div className="whole">
         {this.props.user ? <div className="greeting">Hello {this.props.user.name}</div> : null}
         <div className="selected">{this.state.selected}</div>
@@ -280,8 +281,9 @@ addToCart={this.addToCart}
               
               this.setState({ selected: "greens" });
             }}
-          >
+            >
             GREENS
+            
           </button>
           <button
             className="shop-button"
@@ -308,6 +310,7 @@ addToCart={this.addToCart}
             />
           ) : (
             // <div className="all-items">
+              <div className="margin-bottom">
               <div className="mapped-items">
                 {this.state.selected === "eggs"
                   ? eggItems
@@ -316,6 +319,8 @@ addToCart={this.addToCart}
                   : this.state.selected === "greens"
                   ? greenItems
                   : allItems}
+
+                  </div>
               </div>
             // </div>
           )}
@@ -334,6 +339,7 @@ addToCart={this.addToCart}
             </div>
           ) }
         </div>
+          </div>
           </div>
     );
   }
