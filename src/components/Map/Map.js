@@ -34,8 +34,11 @@ function Map(){
             setSelectedFarm(null);
         }}
           >
+              <div>
+
               <h2>{selectedFarm.properties.NAME}</h2>
               <href>{selectedFarm.properties.website}</href>
+              </div>
           </InfoWindow>  
         )}
         </GoogleMap>

@@ -1,6 +1,6 @@
 .mapped-items{
     
-    height: 100vh;
+    height: 70vh;
     display: grid;
     grid-template-columns: 300px 300px 300px;
     overflow-y: scroll;
@@ -8,7 +8,7 @@
     max-height: 100%;
     margin-left: 200px;
     margin-top: 70px;
-    // margin-right: 100px;
+    // margin-right: 60px;
     
 }
 .aspen{
@@ -133,33 +133,7 @@ margin-bottom: 300px;
  font-family: 'Alata', sans-serif; 
 }
 
-// @media (max-width: 700px){
-//     .mapped-items{
-//         display: flex;
-//         flex-direction: column;
-//         flex-wrap: nowrap;
-//         // justify-content: space-around;
-//         align-items: center;
-//         align-content: flex-start;
-//         margin-right: 40px;
-//         margin-top: 500px;
-//     }
-//     .shop-body{
-//         width: 100vw;
-//         height: 60vh;
-        
-//     }
-//     .buttons{
-//         height: 5px;
-//         width: 5px;
-       
-        
-//     }
-//     .all-items{
-//         z-index: -1;
-//         width: 320px;
-//     }
-// }
+
 
 @media (max-width:700px){
  
@@ -173,6 +147,7 @@ margin-bottom: 300px;
     align-content: stretch;
 margin-top:0px;
     margin-left:0px;
+   
     
     
 //    padding-bottom: 20px;
