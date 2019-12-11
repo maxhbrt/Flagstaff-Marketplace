@@ -1,9 +1,11 @@
-
+import axios from 'axios';
 
 const initialState = {
     user: null,
-    cart: []
+    cart: [],
+    quantity: []
   };
+  export const GET_QUANTITY = "GET_QUANTITY";
   export const ADD_TO_CART = 'ADD_TO_CART';
   export const GET_CART = 'GET_CART';
   export const SET_USER = "SET_USER";
@@ -52,9 +54,16 @@ const initialState = {
           ...state,
           user: null
         }
+          case GET_QUANTITY:
+            return{
+              ...state,
+                quantity: action.payload.data
+            }
+
       default:
         return state;
     }
+
   }
   
   export function setUser(user) {
@@ -83,5 +92,13 @@ const initialState = {
       type: ADD_TO_CART,
       payload: arr
     }
+  }
+  export function getQuantity(){
+    return{
+      type: GET_QUANTITY,
+      payload:  axios.get(`/api/getcart`)
+    }
+ 
+
   }
   

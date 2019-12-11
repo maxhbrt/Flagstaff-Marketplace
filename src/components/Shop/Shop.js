@@ -8,7 +8,10 @@ import Loader from "react-loader-spinner";
 import Cart from "../Cart/cart";
 import { addToCart } from "../../Ducks/reducer";
 import image from '../Landing/flagmarketplacewhite.png';
-import farmer from './farmer.png'
+import EmptyCart from '../Cart/EmptyCart';
+import ShopCart from '../Cart/ShopCart';
+import { Link, withRouter } from "react-router-dom";
+import {getQuantity} from '../../Ducks/reducer';
 
 class Shop extends Component {
   constructor(props) {
@@ -23,7 +26,8 @@ class Shop extends Component {
       products: [],
       cart: [],
       ids: [],
-      cartTotal: 0
+      cartTotal: 0,
+      quantity: 0 
     };
 
     this.getAllGreens = this.getAllGreens.bind(this);
@@ -31,13 +35,13 @@ class Shop extends Component {
     this.getAllEggs = this.getAllEggs.bind(this);
     this.updateQuantity = this.updateQuantity.bind(this);
     this.decQuantity = this.decQuantity.bind(this);
-    this.deleteFromCart = this.deleteFromCart.bind(this);
+    // this.deleteFromCart = this.deleteFromCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.deleteAllCart = this.deleteAllCart.bind(this);
     this.sendOrder = this.sendOrder.bind(this);
   }
 
-  addToCart = async (user_id, item_id, price) => {
+  addToCart = async ( user_id, item_id, price) => {
     const addedCart = await axios.post("/api/addtocart", { user_id, item_id });
     this.setState({
       cart: addedCart.data
@@ -52,25 +56,32 @@ class Shop extends Component {
       cartTotal: this.state.cartTotal += parseFloat(price)
     });
     console.log(this.state.cart);
+    this.setState({
+      quantity: this.state.quantity += 1
+    });
+    this.props.getQuantity();
   };
 
-  deleteFromCart = async (  cart_id, price) => {
+  // deleteFromCart = async (  cart_id, price) => {
    
-    const deletedCart = await axios.delete(`/api/deletefromcart/${cart_id}/`);
-    this.setState({
-      cart: deletedCart.data
-    })
-    let ids = this.state.cart.map(item => {
-      return item.item_id;
-    });
+  //   const deletedCart = await axios.delete(`/api/deletefromcart/${cart_id}/`);
+  //   this.setState({
+  //     cart: deletedCart.data
+  //   })
+  //   let ids = this.state.cart.map(item => {
+  //     return item.item_id;
+  //   });
 
-    this.setState({
+  //   this.setState({
       
-      ids,
-      cartTotal: this.state.cartTotal -= parseFloat(price)
-    });
+  //     ids,
+  //     cartTotal: this.state.cartTotal -= parseFloat(price)
+  //   });
+  //   this.setState({
+  //     quantity: this.state.quantity -= 1
+  //   });
     
-  };
+  // };
 
 
 
@@ -88,6 +99,7 @@ class Shop extends Component {
         isLoading: false
       });
     }, 2000);
+    this.props.getQuantity();
   }
 
   getAllItems() {
@@ -125,6 +137,10 @@ class Shop extends Component {
     this.setState({
       cartTotal: (this.state.cartTotal += parseFloat(price))
     });
+    this.setState({
+      quantity: this.state.quantity += 1
+    })
+    this.props.getQuantity();
   }
 
   decQuantity(item_id, price) {
@@ -135,6 +151,10 @@ class Shop extends Component {
     this.setState({
       cartTotal: this.state.cartTotal -= parseFloat(price)
     })
+    this.setState({
+      quantity: this.state.quantity -= 1
+    })
+    
   }
 
   async deleteAllCart() {
@@ -267,14 +287,31 @@ addToCart={this.addToCart}
     });
 
     return (
-      <div className="for-media">
-      <div className="whole">
-        {this.props.user ? <div className="greeting">Hello {this.props.user.name}</div> : null}
-        <div className="selected">{this.state.selected}</div>
-
-        <div className="buttons">
-        <img className="shop-logo" src={image} alt="logo"/>
+      <div>
+      {this.props.user ? <div className="greeting">Hello {this.props.user.name}</div> : null}
+        <div className='inside-header'>
+        
+        <div className="selected">{this.state.selected}
+        </div>
+        
+        </div>
+          <div className="whole">
+      
+        
+<div className="l-sidebar"></div>
+        <div className="left-container">
+          
         <div className="sort">SORT BY:</div>
+        <button
+            className="shop-button"
+            onClick={() => {
+              
+              this.setState({ selected: "all goods" });
+            }}
+            >
+            ALL
+            
+          </button>
           <button
             className="shop-button"
             onClick={() => {
@@ -299,7 +336,7 @@ addToCart={this.addToCart}
           </button>
         </div>
           
-        <div className="shop-body">
+        
           {this.state.isLoading ? (
             <Loader
               className="loader"
@@ -309,8 +346,8 @@ addToCart={this.addToCart}
               color="pink"
             />
           ) : (
-            // <div className="all-items">
-              <div className="margin-bottom">
+      
+              
               <div className="mapped-items">
                 {this.state.selected === "eggs"
                   ? eggItems
@@ -321,30 +358,34 @@ addToCart={this.addToCart}
                   : allItems}
 
                   </div>
-              </div>
-            // </div>
           )}
-          {!this.props.user || this.state.cartTotal === 0  ? 
-             null : 
-             ( <div  className="cart-comp">
-              <Cart
-              sendOrder={this.sendOrder}
-              deleteAllCart={this.deleteAllCart}
-              deleteFromCart={this.deleteFromCart}
-              decQuantity={this.decQuantity}
-              total={this.state.cartTotal}
-              updateQuantity={this.updateQuantity}
-              cartItems={this.state.cart}
-              />
-            </div>
-          ) }
+          <div className="right-container">
+          <ShopCart/>
+          </div>
+          <div className="r-sidebar"></div>
+          {/* {!this.props.user || this.state.cartTotal === 0  ? 
+          <div className="cart-comp">
+          <EmptyCart/></div> : 
+          ( <div  className="cart-comp">
+          <Cart
+          sendOrder={this.sendOrder}
+          deleteAllCart={this.deleteAllCart}
+          deleteFromCart={this.deleteFromCart}
+          decQuantity={this.decQuantity}
+          total={this.state.cartTotal}
+          updateQuantity={this.updateQuantity}
+          cartItems={this.state.cart}
+          />
+          </div>
+        ) } */}
+       
+          </div>
         </div>
-          </div>
-          </div>
+          
     );
   }
 }
 const mapStateToRedux = state => {
   return state;
 };
-export default connect(mapStateToRedux, addToCart)(Shop);
+export default connect(mapStateToRedux, {getQuantity})(Shop);

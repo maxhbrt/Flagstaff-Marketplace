@@ -106,9 +106,9 @@ class Register extends Component {
             this.register();
           }}>
 
-          <FaCheckCircle size={40} 
+          REGISTER
           
-          />
+          
           </button>
                 </form>
            

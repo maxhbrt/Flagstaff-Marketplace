@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import './card.scss'
-import {IoIosAddCircle} from 'react-icons/io';
+import {FaCartPlus} from 'react-icons/fa';
 import axios from 'axios';
 import {connect} from 'react-redux';
+
 
 class Card extends Component{
     constructor(props){
@@ -34,7 +35,7 @@ render(){
             <h3>{description}</h3>
             <h2>{price}</h2>
             {!this.props.user ? null:
-            <IoIosAddCircle size={30} className="add"
+            <FaCartPlus size={20} className="add"
             onClick={() => {this.props.ids.includes(item_id) ? 
                 this.props.updateQuantity(item_id, price)
                

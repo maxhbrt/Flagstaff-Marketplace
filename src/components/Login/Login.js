@@ -38,6 +38,7 @@ class Login extends Component {
             <div className='login-body'>
                 <div className='about'>Large scale chemical agriculture is poisoning our soils and our water, and weakening our communities. By buying direct from a family farm you can help put a stop to this unfortunate trend. By buying organic produce from your local farmer, you are working to maintain a healthy environment, a vibrant community, and a strong and sustainable local economy for you and your kids to thrive in. 
                 </div>
+                {this.props.user ? null :
                 <form className='login-form'>
                     LOGIN
                     <div className="input-container">
@@ -75,7 +76,7 @@ class Login extends Component {
           }}
           >LOGIN</button>
                 </form>
-           
+    }
             </div>
         )
     }

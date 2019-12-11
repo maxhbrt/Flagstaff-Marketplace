@@ -1,12 +1,12 @@
 .header-bar {
-  width: 100%;
+  width: 100vw;
   margin: 0 auto;
   height: 10vh;
   margin: 0 auto;
   background-color: pink;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   flex-direction: row;
   font-size: 20px;
   color: aliceblue;
@@ -15,19 +15,25 @@
 }
 
 .list-of-serv {
+ 
+margin: 0;
   list-style: none;
   display: flex;
   flex-direction: row;
   list-style-type: none;
-  padding-left: 500px;
+  // padding-left: 500px;
   align-items: center;
   text-decoration: none;
-  justify-content: space-between;
+  justify-content: space-around;
   
   
 }
 li{
+  
   padding-left: 20px;
+  width: 100%;
+  display: flex;
+  
 }
 a {
   color: white;
@@ -37,6 +43,10 @@ a {
 }
 a:hover {
   color: orange;
+}
+.logout:hover{
+  color: orange;
+  cursor: pointer;
 }
 
 .header-button {
@@ -56,6 +66,13 @@ header button {
   display: none;
   justify-content: center;
   align-items: center;
+}
+.cart-link{
+
+}
+.cart-link:hover{
+  color: orange;
+  cursor: pointer;
 }
 
 @media (max-width: 700px) {

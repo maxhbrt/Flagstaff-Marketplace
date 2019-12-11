@@ -1,37 +1,36 @@
 .mapped-items{
     
-    height: 70vh;
+    height: 85vh;
     display: grid;
-    grid-template-columns: 300px 300px 300px;
+    grid-template-columns: 270px 270px 270px ;
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: 100%;
-    margin-left: 200px;
-    margin-top: 70px;
-   
+
+
+
     
 }
-.aspen{
-    height: 100%;
-    float: left;
-}
+
 .shop-button{
+    // padding-bottom: 10px;
+ 
     border-radius: 15px;
     width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    // padding: 10px;
+    
     background-color: pink;
-    font-size: 17px;
+    font-size: 15px;
     color: white;
     border-radius: 20px;
     border-style: solid;
     border-color: bisque;
     border-width: 2px;
-    margin: 5px;
-    margin-right: 100px;
-
+    margin-bottom: 5px;
+   
+text-align: center;
 }
 .shop-button:hover{
 cursor: pointer;
@@ -41,105 +40,126 @@ color:green;
 }
 
 .cards{
-  padding-right:0px;  
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
 }
 .buttons{
-    height: 15vh;
-    width: 15vw;
+
+    width: 10vw;
     display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: center;
 	align-items: flex-start;
 	align-content: stretch; 
-    margin-left: 20px;
+    margin-left: 30px;
     z-index: 1;
-   margin-top: 50px;
-    // padding-top: 20px;
+  
+    padding-top: 20px;
     
    
 }
 
-.shop-body{
-    width: 100vw;
-    height: 70vh;
-    display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-    align-items: center;
-    position: absolute;
-    align-content: stretch;
-    top: 200px;
-   
-    
-   
-    
-}
 
-.cart-comp{
-    height: 30vh;
-    margin-bottom:300px;
-    margin-left: 0px;
 
-}
+
 .loader{
-// margin-left: 550px;
-margin-bottom: 300px;
+margin-top: 100px;
+
 }
 
-// .all-items{
-//     margin-right: 0%;
-//     height: auto;
-//     z-index: -1;
-//     width: 1200px;
-    
-// }
+
 .selected{
+
  font-size: 25px; 
- 
-  padding-top: 20px;
+
+padding-bottom: 10px;
   font-family: 'Lobster', cursive;
   text-decoration: underline;
   font-family: 'Calistoga', cursive;
   color:rgb(16, 99, 16);
-  margin-top: 20px;
+  margin-top: 15px;
   
+
 }
 .sort{
     font-family: 'Alata', sans-serif; 
     margin-bottom:15px; 
     font-size: 20px;  
 }
-.farmer{
-    height: 50%;
-    margin-bottom: 500px;
-}
-.shop-logo{
-    filter: invert(73%) sepia(65%) saturate(250%) hue-rotate(106deg) brightness(107%) contrast(104%);  
-    width: 300px; 
-    height: 80%;
-    margin-bottom: 20px;
-}
+
+
 .whole{
-    display: flex;
-	flex-direction: column;
+    width: 100vw;
+    height: 50vh;
+	display: flex;
+	flex-direction: row;
 	flex-wrap: nowrap;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: stretch;
-    align-content: stretch;
+	align-content: stretch
     
 }
 .greeting{
  padding-top: 5px;   
  font-family: 'Alata', sans-serif; 
 }
+.inside-header{
+    
+    // padding-right: 50px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+    align-content: stretch;
+ 
+}
+h3{
+    // border-bottom: pink;
+    // border-width: 2px;
+    // border-bottom-style: solid;
+    margin-top: 10px;
+    margin-bottom: 10px;
+   
+}
 
 
+
+.right-container{
+    height: 75vh;
+    width: 10vw;
+padding-left: 15px;
+}
+.left-container{
+    height: 75vh;
+    width: 10vw;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: baseline;
+	align-content: stretch;
+}
+.l-sidebar{
+    height: 75vh;
+    width: 10vw;
+  
+}
+.r-sidebar{
+    height: 75vh;
+    width: 10vw;
+ 
+}
 
 @media (max-width:700px){
  
     .mapped-items{
+    
         height: 78vh;
         display: flex;
 	flex-direction: column-reverse;
@@ -159,7 +179,7 @@ margin-top:0px;
     }
     .whole{
         display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-around;
 	align-items: center;
@@ -168,11 +188,7 @@ margin-top:0px;
     .buttons{
         display: none;
     }
-    .shop-body{
-        height: 62vh;
 
-    
-    }
 
 
     .sort{
@@ -192,4 +208,19 @@ margin-top:0px;
   }
 
 
+}
+    //   @media (max-width:1635px){
+    //       .mapped-items{
+    //       grid-template-columns: 270px 270px 270px; 
+    //       }
+    //   }
+@media (max-width:1006px){
+    .mapped-items{
+    grid-template-columns: 270px 270px; 
+    }
+}
+@media (max-width:739px){
+    .mapped-items{
+    grid-template-columns: 270px; 
+    }
 }

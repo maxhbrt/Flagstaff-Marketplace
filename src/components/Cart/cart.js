@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import CartHeader from '../Cart/CartHeader';
 import './cart.scss';
 import {FaShoppingCart} from "react-icons/fa"
-import {getCart} from '../../Ducks/reducer';
+import {getCart, addToCart} from '../../Ducks/reducer';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
@@ -20,41 +20,85 @@ class Cart extends Component{
     }
 
      this.getCart = this.getCart.bind(this);
-    
+    this.deleteFromCart = this.deleteFromCart.bind(this);
+    this.decQuantity = this.decQuantity.bind(this);
     }
 
     componentDidMount(){
         this.getCart();
-       
+        // this.deleteFromCart();
+        // this.decQuantity();
+     
+    
         
     }
+
+
+
+    
+      deleteFromCart = async (  cart_id, price) => {
+       
+        const deletedCart = await axios.delete(`/api/deletefromcart/${cart_id}/`);
+        this.setState({
+          cart: deletedCart.data
+        })
+        let ids = this.state.cart.map(item => {
+          return item.item_id;
+        });
+    
+        this.setState({
+          
+          ids,
+          cartTotal: this.state.cartTotal -= parseFloat(price)
+        });
+        this.setState({
+          quantity: this.state.quantity -= 1
+        });
+        
+      };
+
+
+      decQuantity(item_id, price) {
+        const user_id = this.props.user.user_id;
+        axios.put(`/api/decquantity/${item_id}`, { user_id }).then(response => {
+          this.setState({ cart: response.data });
+        })
+        this.setState({
+          cartTotal: this.state.cartTotal -= parseFloat(price)
+        })
+        this.setState({
+          quantity: this.state.quantity -= 1
+        })
+        
+      }
   
 
     
     
     getCart(id){
-        axios.get(`/api/getcart/${id}`).then(response => {
+        axios.get(`/api/getcart`).then(response => {
             this.setState({ cart: response.data });
+            console.log(this.state.cart)
           });  
     }
-    // async deleteAllCart() {
+    async deleteAllCart() {
    
-    //     await axios.delete(`/api/deleteallcart/`);
+        await axios.delete(`/api/deleteallcart/`);
        
-    //     this.setState({
-    //       cart: []
-    //     })
-    //     let ids = this.state.cart.map(item => {
-    //       return item.item_id;
-    //     });
+        this.setState({
+          cart: []
+        })
+        let ids = this.state.cart.map(item => {
+          return item.item_id;
+        });
     
-    //     this.setState({
+        this.setState({
           
-    //       ids,
-    //       cartTotal: 0
-    //     });
+          ids,
+          cartTotal: 0
+        });
         
-    //   };
+      };
  
 
     async handleToken(token, addresses) {
@@ -80,15 +124,15 @@ class Cart extends Component{
 
     render(){
 
-        const mappedcartItems = this.props.cartItems.map(item => {
+        const mappedcartItems = this.state.cart.map(item => {
             return( <div className='cart-item'>
                     <div>{item.item_name}</div>
                     <div>{item.farm_name}</div>
                     <div>{item.quantity}</div>
                     <div >{(item.price * item.quantity).toFixed(2)}</div>
                     <button className="delete" onClick={() => {item.quantity === 1 ?
-                this.props.deleteFromCart( item.cart_id, item.price) :
-                this.props.decQuantity(item.item_id, item.price)
+                this.deleteFromCart( item.cart_id, item.price) :
+                this.decQuantity(item.item_id, item.price)
                 }} >X</button>
                     </div>
                     
@@ -100,7 +144,7 @@ class Cart extends Component{
             <div className='cart-body'>
              <div className="header">
                  <FaShoppingCart/>
-                 <div>TOTAL: {this.props.total.toFixed(2)}</div>
+                 {/* <div>TOTAL: {this.props.total.toFixed(2)}</div> */}
                  
              </div>
              <div>
@@ -114,7 +158,7 @@ class Cart extends Component{
             token={this.handleToken}
             billingAddress
             shippingAddress
-            amount={this.props.total.toFixed(2) * 100}
+            // amount={this.props.total.toFixed(2) * 100}
             closed={this.sendAndDelete}
             />
       
@@ -124,4 +168,4 @@ class Cart extends Component{
 
 }   
 const mapStateToRedux = state => {return state}
-export default connect(mapStateToRedux)(Cart)
+export default connect(mapStateToRedux, addToCart)(Cart)

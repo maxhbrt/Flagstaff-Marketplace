@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { FaSun } from "react-icons/fa";
 import { TiThMenu } from "react-icons/ti";
 import { connect } from "react-redux";
-import { setUser } from "../../Ducks/reducer";
+import { setUser, getQuantity } from "../../Ducks/reducer";
 import "./header.scss";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
+import { FaShoppingBasket } from "react-icons/fa";
+import Badge from '@material-ui/core/Badge';
 
 
 class Header extends Component {
@@ -14,13 +16,17 @@ class Header extends Component {
     this.state = {
       toggle: false,
       redirect:false,
-      showLogout:false
+      showLogout:false,
+      quantity:0
     };
     this.toggler = this.toggler.bind(this);
    
   }
 
+componentDidMount(){
 
+  console.log("111111111111", this.props)
+}
 
   toggler() {
     this.setState(prevState => {
@@ -32,6 +38,7 @@ class Header extends Component {
 
 
   render() {
+    console.log(22222222222, (this.state.quantity))
     return (
       <header>
         <div className="header-bar">
@@ -56,9 +63,9 @@ class Header extends Component {
                 <li>
                   <Link to="/register">REGISTER</Link>
                 </li>
-                <div>
+                
                 {this.props.user ? 
-                <li onClick={() => {
+                <li className="logout" onClick={() => {
                   axios.delete("/auth/logout").then(() =>{
                     this.props.setUser(null);
                     if(setUser(null))
@@ -66,9 +73,18 @@ class Header extends Component {
                     console.log(this.props)
                   })
                 }} >
-                  Logout
+                  LOGOUT
                 </li> : null}
-                </div>
+                
+          
+                {this.props.user ? 
+                 
+             <li className = 'cart-link'
+             onClick={() =>{this.props.history.push('/cart')}}> <Badge badgeContent={this.props.quantity} color="primary"><FaShoppingBasket/></Badge></li> :
+                null
+              }
+     
+              
               </div>
             </ul>
           </nav>
@@ -79,10 +95,12 @@ class Header extends Component {
 }
 
 function mapReduxStateToProps(reduxState) {
+
   return reduxState;
 }
 const mapDispatchToProps = {
-  setUser
+  setUser,
+  getQuantity
 };
 
 const invokedConnect = connect(

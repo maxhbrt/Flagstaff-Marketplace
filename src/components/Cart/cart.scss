@@ -1,59 +1,59 @@
-.cart-body{
-    border-style: solid;
-    border-color: pink;
-    border-width: 5px;
-    width: 15vw;
-    height: auto;
-    background-color: none;
-   margin-top: 0;
-   display: flex;
-   flex-direction: column;
-   flex-wrap: nowrap;
-   justify-content: space-between;
-   align-items: center;
-   align-content: space-around;
-   padding-bottom: 10px;
-   font-family: 'Quicksand', sans-serif;
-}
+// .cart-body{
+//     border-style: solid;
+//     border-color: pink;
+//     border-width: 5px;
+//     width: 10vw;
+//     height: auto;
+//     background-color: none;
+//    margin-top: 0;
+//    display: flex;
+//    flex-direction: column;
+//    flex-wrap: nowrap;
+//    justify-content: space-between;
+//    align-items: center;
+//    align-content: space-around;
+//    padding-bottom: 10px;
+//    font-family: 'Quicksand', sans-serif;
+// }
 
-.header{
-width: 100%;
-background-color: none;
-height: 20%;
-display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-    align-content: stretch;
+// .header{
+// width: 100%;
+// background-color: none;
+// height: 20%;
+// display: flex;
+// 	flex-direction: row;
+// 	flex-wrap: nowrap;
+// 	justify-content: space-around;
+// 	align-items: center;
+//     align-content: stretch;
     
-border-bottom-style: solid;
-border-bottom-width: 5px;
-border-bottom-color: pink;
+// border-bottom-style: solid;
+// border-bottom-width: 5px;
+// border-bottom-color: pink;
 
-}
+// }
 
-.checkout{
-font-size: 10px;
-width: 90%;
-height: 10%;
-}
-.cart-item{
-    border-style: solid;
-    border-width: 2px;
-    border-color: antiquewhite;
-    margin: 3px;
-    padding:5px;
-}
-.delete:hover{
-background-color:gold;
-cursor: pointer;
-}
+// .checkout{
+// font-size: 10px;
+// width: 90%;
+// height: 10%;
+// }
+// .cart-item{
+//     border-style: solid;
+//     border-width: 2px;
+//     border-color: antiquewhite;
+//     margin: 3px;
+//     padding:5px;
+// }
+// .delete:hover{
+// background-color:gold;
+// cursor: pointer;
+// }
 
-@media (max-width:700px){
-.cart-body{
-width: 40vw;
-margin-top: 20px;
-}
+// @media (max-width:700px){
+// .cart-body{
+// width: 40vw;
+// margin-top: 20px;
+// }
 
-}
+// }

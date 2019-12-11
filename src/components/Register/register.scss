@@ -1,4 +1,11 @@
 .register-body {
+
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  url("./login-background.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
   width: 100vw;
   height: 90vh;
   display: flex;
@@ -8,14 +15,16 @@
   align-items: center;
   align-content: stretch;
   font-size: 30px;
+  color: pink;
 }
 
 .register-form {
-width: 20vw;
-height: 50vh;
+  background: rgba(205, 205, 198, 0.5);
+width: 10vw;
+height: 30vh;
 border-style: solid;
 border-color: bisque;
-background-color: bisque;
+// background-color: bisque;
 display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
