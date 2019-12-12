@@ -19,6 +19,7 @@ class Card extends Component{
 
 
 
+
  
       
 
@@ -36,6 +37,7 @@ render(){
             <h2>{price}</h2>
             {!this.props.user ? null:
             <FaCartPlus size={20} className="add"
+            // onClick={() => {this.props.getQuantity}}
             onClick={() => {this.props.ids.includes(item_id) ? 
                 this.props.updateQuantity(item_id, price)
                

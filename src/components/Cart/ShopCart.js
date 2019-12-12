@@ -20,7 +20,7 @@ class ShopCart extends Component {
           ) : (
             <p className="p">
             
-              <Link className="register-link" to="/login">login</Link>or
+              <Link className="register-link" to="/">login</Link>or
    
               <Link className="register-link" to="/register">
                 register

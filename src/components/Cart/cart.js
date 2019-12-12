@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 import { toast } from "react-toastify";
+import Header from '../Header/Header';
 
 class Cart extends Component{
     constructor(props){
@@ -145,7 +146,7 @@ class Cart extends Component{
         return(
          
               <div className='cart-body'>
-                
+                <Header/>
                  {/* <div>TOTAL: {this.props.total.toFixed(2)}</div> */}
                  
             

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import * as farmsData from '../Map/map-data.json';
+import Header from '../Header/Header';
 
 
 
@@ -9,6 +10,7 @@ function Map(){
     const [selectedFarm, setSelectedFarm] = useState(null);
 
     return(
+       
     <GoogleMap defaultZoom={12.3} defaultCenter={{lat:35.198284, lng:-111.651299}}>
 
         {farmsData.features.map(farm => (
@@ -53,6 +55,7 @@ function Map(){
 export default function MyMap(){
     
         return <div style={{ width: '100vw', height: '100vh'}}>
+            <Header/>
             <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry.drawing.places&key=` + process.env.REACT_APP_GOOGLEKEY }
             loadingElement={<div style={{ height: "100%" }}/>}
             containerElement={<div style={{ height: "100%"}}/>}

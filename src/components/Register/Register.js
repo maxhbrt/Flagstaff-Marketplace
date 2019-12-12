@@ -5,6 +5,7 @@ import { setUser } from '../../Ducks/reducer';
 import {FaCheckCircle} from "react-icons/fa";
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
+import Header from '../Header/Header';
 
 
 class Register extends Component {
@@ -42,7 +43,7 @@ class Register extends Component {
         const { email, name, password, address } =  this.state; 
         return(
             <div>
-                
+                <Header/>
             <div className='register-body'>
                 Register
                 <form className='register-form'

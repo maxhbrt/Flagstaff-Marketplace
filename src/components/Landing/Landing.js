@@ -5,10 +5,12 @@ import { TiArrowDown } from "react-icons/ti";
 import Middle from "./Middle";
 import { Link } from 'react-scroll';
 import image from './flagmarketplacewhite.png'
+import Header from '../Header/Header';
 
 function Landing() {
   return (
     <div className="landing-body">
+    <Header/>
       <div className="landing">
           <img className="logo" src={image} alt="logo"/>
         {/* Flagstaff Marketplace */}

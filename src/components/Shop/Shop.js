@@ -12,6 +12,7 @@ import EmptyCart from '../Cart/EmptyCart';
 import ShopCart from '../Cart/ShopCart';
 import { Link, withRouter } from "react-router-dom";
 import {getQuantity} from '../../Ducks/reducer';
+import Header from '../Header/Header';
 
 class Shop extends Component {
   constructor(props) {
@@ -89,7 +90,7 @@ class Shop extends Component {
 
 
   componentDidMount() {
-    
+    this.getCart();
     this.getAllItems();
     this.getAllGreens();
     this.getAllProduce();
@@ -101,6 +102,21 @@ class Shop extends Component {
     }, 2000);
     this.props.getQuantity();
   }
+
+
+
+  getCart(id){
+    axios.get(`/api/getcart`).then(response => {
+      const newNum = response.data.map(item => item.quantity)
+      .reduce((acc, curr) => {
+        return acc += curr
+      })
+      console.log("newNum: ", newNum)
+
+      this.setState({ quantity: newNum });
+        
+      });  
+}
 
   getAllItems() {
     axios.get("/api/inventory").then(response => {
@@ -209,7 +225,7 @@ class Shop extends Component {
       return (
         <div className="cards">
           <Card
-            
+            getQuantity={this.getCart}
             calcTotal={this.calcTotal}
             updateQuantity={this.updateQuantity}
             ids={this.state.ids}
@@ -288,6 +304,9 @@ addToCart={this.addToCart}
 
     return (
       <div>
+        <Header
+        cartQuantity = {this.state.quantity}
+        />
       {this.props.user ? <div className="greeting">Hello {this.props.user.name}</div> : null}
         <div className='inside-header'>
         

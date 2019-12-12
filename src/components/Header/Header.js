@@ -17,16 +17,14 @@ class Header extends Component {
       toggle: false,
       redirect:false,
       showLogout:false,
-      quantity:0
+      // quantity:this.props.quantity
+      cart: 0
     };
     this.toggler = this.toggler.bind(this);
    
   }
 
-componentDidMount(){
 
-  console.log("111111111111", this.props)
-}
 
   toggler() {
     this.setState(prevState => {
@@ -37,8 +35,10 @@ componentDidMount(){
   }
 
 
+
+
   render() {
-    console.log(22222222222, (this.state.quantity))
+    console.log("Passing quantity via props", this.props.quantity)
     return (
       <header>
         <div className="header-bar">
@@ -80,7 +80,11 @@ componentDidMount(){
                 {this.props.user ? 
                  
              <li className = 'cart-link'
-             onClick={() =>{this.props.history.push('/cart')}}> <Badge badgeContent={this.props.quantity} color="primary"><FaShoppingBasket/></Badge></li> :
+             onClick={() =>{this.props.history.push('/cart')}}> <Badge badgeContent={
+               this.props.cartQuantity
+               
+            
+              } color="primary"><FaShoppingBasket/></Badge></li> :
                 null
               }
      
