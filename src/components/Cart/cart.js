@@ -126,14 +126,16 @@ class Cart extends Component{
 
         const mappedcartItems = this.state.cart.map(item => {
             return( <div className='cart-item'>
-                    <div>{item.item_name}</div>
-                    <div>{item.farm_name}</div>
-                    <div>{item.quantity}</div>
-                    <div >{(item.price * item.quantity).toFixed(2)}</div>
+                  <div>  <h2>{item.item_name}</h2></div>
+                  <div className="price">
+                  <h3 className="farm-name">{item.farm_name}</h3>
+                   <h3>{item.quantity}</h3>
+                   <h2>{(item.price * item.quantity).toFixed(2)}</h2>
                     <button className="delete" onClick={() => {item.quantity === 1 ?
                 this.deleteFromCart( item.cart_id, item.price) :
                 this.decQuantity(item.item_id, item.price)
                 }} >X</button>
+                </div>
                     </div>
                     
                     )
@@ -141,17 +143,18 @@ class Cart extends Component{
                     
         })
         return(
-            <div className='cart-body'>
-             <div className="header">
-                 <FaShoppingCart/>
+         
+              <div className='cart-body'>
+                
                  {/* <div>TOTAL: {this.props.total.toFixed(2)}</div> */}
                  
-             </div>
-             <div>
+            
+             
+             <div className='cart-items'>
                  {mappedcartItems}
              </div>
-  
-           
+          
+           <div className='checkout'>
             <StripeCheckout 
             
             stripeKey={process.env.REACT_APP_STRIPE_KEY}
@@ -161,7 +164,7 @@ class Cart extends Component{
             // amount={this.props.total.toFixed(2) * 100}
             closed={this.sendAndDelete}
             />
-      
+      </div>
             </div>
         )
     }
