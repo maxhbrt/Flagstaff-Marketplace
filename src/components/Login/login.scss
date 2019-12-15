@@ -17,7 +17,8 @@
   padding-top: 60px;
 }
 .login-form {
-  width: 14vw;
+  
+  width: auto;
   height: 25vh;
 color:pink;
   border-radius: 25px;
@@ -29,7 +30,8 @@ color:pink;
 	justify-content: space-around;
 	align-items: center;
   align-content: stretch;
-  padding-bottom: 20px;
+  padding: 20px;
+  margin-bottom: 50px;
 }
 
 .about {
@@ -46,6 +48,10 @@ color:pink;
 .login-button{
   width: auto;
   height:  auto;
+}
+.login-button:hover{
+  color:orange;
+  cursor: pointer;
 }
 
 @media(max-width: 700px){

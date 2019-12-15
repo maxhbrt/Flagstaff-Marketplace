@@ -28,7 +28,8 @@ class Shop extends Component {
       cart: [],
       ids: [],
       cartTotal: 0,
-      quantity: 0 
+      quantity: 0,
+      checkoutTotal: 0 
     };
 
     this.getAllGreens = this.getAllGreens.bind(this);
@@ -90,7 +91,9 @@ class Shop extends Component {
 
 
   componentDidMount() {
-    this.getCart();
+{ this.state.quantity &&
+    this.getCart() }
+
     this.getAllItems();
     this.getAllGreens();
     this.getAllProduce();
@@ -107,16 +110,21 @@ class Shop extends Component {
 
   getCart(id){
     axios.get(`/api/getcart`).then(response => {
+     
       const newNum = response.data.map(item => item.quantity)
       .reduce((acc, curr) => {
         return acc += curr
       })
-      console.log("newNum: ", newNum)
+      
 
-      this.setState({ quantity: newNum });
+      this.setState({ quantity: newNum })
+   
+      
         
       });  
 }
+
+
 
   getAllItems() {
     axios.get("/api/inventory").then(response => {
@@ -305,6 +313,7 @@ addToCart={this.addToCart}
     return (
       <div>
         <Header
+        checkoutTotal = {this.state.checkoutTotal}
         cartQuantity = {this.state.quantity}
         />
       {this.props.user ? <div className="greeting">Hello {this.props.user.name}</div> : null}

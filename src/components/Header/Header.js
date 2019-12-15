@@ -60,9 +60,10 @@ class Header extends Component {
                 <li>
                   <Link to="/shop">SHOP</Link>
                 </li>
+                {this.props.user ? null :
                 <li>
                   <Link to="/register">REGISTER</Link>
-                </li>
+                </li>}
                 
                 {this.props.user ? 
                 <li className="logout" onClick={() => {

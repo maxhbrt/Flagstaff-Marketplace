@@ -102,7 +102,7 @@ class Register extends Component {
               }
             />
           </div>
-          <button onClick={ e => {
+          <button className="register-button" onClick={ e => {
             e.preventDefault();
             this.register();
           }}>
