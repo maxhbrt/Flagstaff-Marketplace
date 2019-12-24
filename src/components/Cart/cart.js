@@ -70,6 +70,7 @@ this.getTotal = this.getTotal.bind(this);
           quantity: this.state.quantity -= 1
         });
         this.getTotal()
+    
       };
 
 
@@ -79,7 +80,7 @@ this.getTotal = this.getTotal.bind(this);
           this.setState({ cart: response.data });
         })
         this.setState({
-          cartTotal: this.state.cartTotal -= parseFloat(price)
+          checkoutTotal: this.state.checkoutTotal -= parseFloat(price)
         })
         this.setState({
           quantity: this.state.quantity -= 1
@@ -88,7 +89,7 @@ this.getTotal = this.getTotal.bind(this);
       }
       getTotal(){
    
-        const checkoutTotal = this.state.cart.map(item => parseFloat(item.price))
+        const checkoutTotal = this.state.cart.map(item => parseFloat(item.price * item.quantity))
         
         .reduce((acc, curr) => {
           return acc += curr
@@ -195,7 +196,7 @@ this.getTotal = this.getTotal.bind(this);
         return(
          <div>
                 <Header/>
-               {this.state.checkoutTotal ? (  
+               {this.state.checkoutTotal > 0 ? (  
               <div className='cart-body'>
 
 

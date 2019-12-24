@@ -37,7 +37,7 @@ class Login extends Component {
         return(
           <div className='login-body'>
          
-                <div className='about'>By buying organic produce from your local farmer, you are working to maintain a healthy environment, a vibrant community, and a strong and sustainable local economy for you and your kids to thrive in. 
+                <div className='about'>By buying organic produce from your local farmer, you are working to maintain a healthy environment, a vibrant community, and a strong and sustainable local economy for you and your family to thrive in. 
                 </div>
                 {this.props.user ? null :
                 <form className='login-form'>

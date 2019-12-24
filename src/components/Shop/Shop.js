@@ -7,12 +7,12 @@ import { connect } from "react-redux";
 import Loader from "react-loader-spinner";
 import Cart from "../Cart/cart";
 import { addToCart } from "../../Ducks/reducer";
-import image from '../Landing/flagmarketplacewhite.png';
-import EmptyCart from '../Cart/EmptyCart';
-import ShopCart from '../Cart/ShopCart';
+import image from "../Landing/flagmarketplacewhite.png";
+import EmptyCart from "../Cart/EmptyCart";
+import ShopCart from "../Cart/ShopCart";
 import { Link, withRouter } from "react-router-dom";
-import {getQuantity} from '../../Ducks/reducer';
-import Header from '../Header/Header';
+import { getQuantity } from "../../Ducks/reducer";
+import Header from "../Header/Header";
 
 class Shop extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Shop extends Component {
       ids: [],
       cartTotal: 0,
       quantity: 0,
-      checkoutTotal: 0 
+      checkoutTotal: 0
     };
 
     this.getAllGreens = this.getAllGreens.bind(this);
@@ -41,9 +41,10 @@ class Shop extends Component {
     this.addToCart = this.addToCart.bind(this);
     this.deleteAllCart = this.deleteAllCart.bind(this);
     this.sendOrder = this.sendOrder.bind(this);
+    // this.setquantity = this.setquantity.bind(this);
   }
 
-  addToCart = async ( user_id, item_id, price) => {
+  addToCart = async (user_id, item_id, price) => {
     const addedCart = await axios.post("/api/addtocart", { user_id, item_id });
     this.setState({
       cart: addedCart.data
@@ -55,44 +56,19 @@ class Shop extends Component {
       ids
     });
     this.setState({
-      cartTotal: this.state.cartTotal += parseFloat(price)
+      cartTotal: (this.state.cartTotal += parseFloat(price))
     });
     console.log(this.state.cart);
     this.setState({
-      quantity: this.state.quantity += 1
+      quantity: (this.state.quantity += 1)
     });
-    this.props.getQuantity();
+    // this.props.getQuantity();
   };
 
-  // deleteFromCart = async (  cart_id, price) => {
-   
-  //   const deletedCart = await axios.delete(`/api/deletefromcart/${cart_id}/`);
-  //   this.setState({
-  //     cart: deletedCart.data
-  //   })
-  //   let ids = this.state.cart.map(item => {
-  //     return item.item_id;
-  //   });
-
-  //   this.setState({
-      
-  //     ids,
-  //     cartTotal: this.state.cartTotal -= parseFloat(price)
-  //   });
-  //   this.setState({
-  //     quantity: this.state.quantity -= 1
-  //   });
-    
-  // };
-
-
-
-
-
-
   componentDidMount() {
-{ this.state.quantity &&
-    this.getCart() }
+    // if (this.props.user) {
+   this.getCart();
+    
 
     this.getAllItems();
     this.getAllGreens();
@@ -103,28 +79,22 @@ class Shop extends Component {
         isLoading: false
       });
     }, 2000);
-    this.props.getQuantity();
   }
 
 
-
-  getCart(id){
+  getCart(id) {
     axios.get(`/api/getcart`).then(response => {
-     
-      const newNum = response.data.map(item => item.quantity)
-      .reduce((acc, curr) => {
-        return acc += curr
-      })
-      
+      if (response.length > 0) {
+        const newNum = response.data
+          .map(item => item.quantity)
+          .reduce((acc, curr) => {
+            return (acc += curr);
+          });
 
-      this.setState({ quantity: newNum })
-   
-      
-        
-      });  
-}
-
-
+        this.setState({ quantity: newNum });
+      }
+    });
+  }
 
   getAllItems() {
     axios.get("/api/inventory").then(response => {
@@ -154,7 +124,7 @@ class Shop extends Component {
 
   updateQuantity(item_id, price) {
     const user_id = this.props.user.user_id;
-    
+
     axios.put(`/api/updatequantity/${item_id}`, { user_id }).then(response => {
       this.setState({ cart: response.data });
     });
@@ -162,63 +132,53 @@ class Shop extends Component {
       cartTotal: (this.state.cartTotal += parseFloat(price))
     });
     this.setState({
-      quantity: this.state.quantity += 1
-    })
-    this.props.getQuantity();
+      quantity: (this.state.quantity += 1)
+    });
+    
   }
 
   decQuantity(item_id, price) {
     const user_id = this.props.user.user_id;
     axios.put(`/api/decquantity/${item_id}`, { user_id }).then(response => {
       this.setState({ cart: response.data });
-    })
+    });
     this.setState({
-      cartTotal: this.state.cartTotal -= parseFloat(price)
-    })
+      cartTotal: (this.state.cartTotal -= parseFloat(price))
+    });
     this.setState({
-      quantity: this.state.quantity -= 1
-    })
-    
+      quantity: (this.state.quantity -= 1)
+    });
   }
 
   async deleteAllCart() {
-   
     await axios.delete(`/api/deleteallcart/`);
-   
+
     this.setState({
       cart: []
-    })
+    });
     let ids = this.state.cart.map(item => {
       return item.item_id;
     });
 
     this.setState({
-      
       ids,
       cartTotal: 0
     });
-    
-  };
-
-
-
-  async sendOrder() {
-    const name = this.props.user.name
-    const email = this.props.user.email
-    const message = JSON.stringify(this.state.cart)
-    const address = this.props.user.address
-  console.log(message)
-      await axios.post("/auth/contact",  {
-         name,
-        email,
-        message,
-        address
-      })
-    
   }
 
-
-
+  async sendOrder() {
+    const name = this.props.user.name;
+    const email = this.props.user.email;
+    const message = JSON.stringify(this.state.cart);
+    const address = this.props.user.address;
+    console.log(message);
+    await axios.post("/auth/contact", {
+      name,
+      email,
+      message,
+      address
+    });
+  }
 
   render() {
     console.log(this.state.cart);
@@ -254,17 +214,17 @@ class Shop extends Component {
       return (
         <div>
           <Card
- calcTotal={this.calcTotal}
- updateQuantity={this.updateQuantity}
- ids={this.state.ids}
- addToCart={this.addToCart}
- item_id={item.item_id}
- image={item.image}
- item_name={item.item_name}
- farm_name={item.farm_name}
- description={item.description}
- price={item.price}
- addToCart={this.addToCart}
+            calcTotal={this.calcTotal}
+            updateQuantity={this.updateQuantity}
+            ids={this.state.ids}
+            addToCart={this.addToCart}
+            item_id={item.item_id}
+            image={item.image}
+            item_name={item.item_name}
+            farm_name={item.farm_name}
+            description={item.description}
+            price={item.price}
+            addToCart={this.addToCart}
           />
         </div>
       );
@@ -274,17 +234,17 @@ class Shop extends Component {
       return (
         <div>
           <Card
-calcTotal={this.calcTotal}
-updateQuantity={this.updateQuantity}
-ids={this.state.ids}
-addToCart={this.addToCart}
-item_id={item.item_id}
-image={item.image}
-item_name={item.item_name}
-farm_name={item.farm_name}
-description={item.description}
-price={item.price}
-addToCart={this.addToCart}
+            calcTotal={this.calcTotal}
+            updateQuantity={this.updateQuantity}
+            ids={this.state.ids}
+            addToCart={this.addToCart}
+            item_id={item.item_id}
+            image={item.image}
+            item_name={item.item_name}
+            farm_name={item.farm_name}
+            description={item.description}
+            price={item.price}
+            addToCart={this.addToCart}
           />
         </div>
       );
@@ -294,17 +254,17 @@ addToCart={this.addToCart}
       return (
         <div>
           <Card
-    calcTotal={this.calcTotal}
-    updateQuantity={this.updateQuantity}
-    ids={this.state.ids}
-    addToCart={this.addToCart}
-    item_id={item.item_id}
-    image={item.image}
-    item_name={item.item_name}
-    farm_name={item.farm_name}
-    description={item.description}
-    price={item.price}
-    addToCart={this.addToCart}
+            calcTotal={this.calcTotal}
+            updateQuantity={this.updateQuantity}
+            ids={this.state.ids}
+            addToCart={this.addToCart}
+            item_id={item.item_id}
+            image={item.image}
+            item_name={item.item_name}
+            farm_name={item.farm_name}
+            description={item.description}
+            price={item.price}
+            addToCart={this.addToCart}
           />
         </div>
       );
@@ -313,58 +273,49 @@ addToCart={this.addToCart}
     return (
       <div>
         <Header
-        checkoutTotal = {this.state.checkoutTotal}
-        cartQuantity = {this.state.quantity}
+          checkoutTotal={this.state.checkoutTotal}
+          cartQuantity={this.state.quantity}
         />
-      {this.props.user ? <div className="greeting">Hello {this.props.user.name}</div> : null}
-        <div className='inside-header'>
-        
-        <div className="selected">{this.state.selected}
+        {this.props.user ? (
+          <div className="greeting">Hello {this.props.user.name}</div>
+        ) : null}
+        <div className="inside-header">
+          <div className="selected">{this.state.selected}</div>
         </div>
-        
-        </div>
-          <div className="whole">
-      
-        
-<div className="l-sidebar"></div>
-        <div className="left-container">
-          
-        <div className="sort">SORT BY:</div>
-        <button
-            className="shop-button"
-            onClick={() => {
-              
-              this.setState({ selected: "all goods" });
-            }}
+        <div className="whole">
+          <div className="l-sidebar"></div>
+          <div className="left-container">
+            <div className="sort">SORT BY:</div>
+            <button
+              className="shop-button"
+              onClick={() => {
+                this.setState({ selected: "all goods" });
+              }}
             >
-            ALL
-            
-          </button>
-          <button
-            className="shop-button"
-            onClick={() => {
-              
-              this.setState({ selected: "greens" });
-            }}
+              ALL
+            </button>
+            <button
+              className="shop-button"
+              onClick={() => {
+                this.setState({ selected: "greens" });
+              }}
             >
-            GREENS
-            
-          </button>
-          <button
-            className="shop-button"
-            onClick={() => this.setState({ selected: "produce" })}
-          >
-            PRODUCE
-          </button>
-          <button
-            className="shop-button"
-            onClick={() => this.setState({ selected: "eggs" })}
-          >
-            EGGS
-          </button>
-        </div>
-          
-        
+              GREENS
+            </button>
+            <button
+              className="shop-button"
+              onClick={() => this.setState({ selected: "produce" })}
+            >
+              PRODUCE
+            </button>
+            <button
+              className="shop-button"
+              onClick={() => this.setState({ selected: "eggs" })}
+            >
+              EGGS
+            </button>
+          </div>
+
           {this.state.isLoading ? (
             <Loader
               className="loader"
@@ -374,46 +325,30 @@ addToCart={this.addToCart}
               color="pink"
             />
           ) : (
-      
-              
-              <div className="mapped-items">
-                {this.state.selected === "eggs"
-                  ? eggItems
-                  : this.state.selected === "produce"
-                  ? produceItems
-                  : this.state.selected === "greens"
-                  ? greenItems
-                  : allItems}
-
-                  </div>
+            <div className="mapped-items">
+              {this.state.selected === "eggs"
+                ? eggItems
+                : this.state.selected === "produce"
+                ? produceItems
+                : this.state.selected === "greens"
+                ? greenItems
+                : allItems}
+            </div>
           )}
           <div className="right-container">
-          <ShopCart/>
+            <ShopCart />
           </div>
           <div className="r-sidebar"></div>
-          {/* {!this.props.user || this.state.cartTotal === 0  ? 
-          <div className="cart-comp">
-          <EmptyCart/></div> : 
-          ( <div  className="cart-comp">
-          <Cart
-          sendOrder={this.sendOrder}
-          deleteAllCart={this.deleteAllCart}
-          deleteFromCart={this.deleteFromCart}
-          decQuantity={this.decQuantity}
-          total={this.state.cartTotal}
-          updateQuantity={this.updateQuantity}
-          cartItems={this.state.cart}
-          />
-          </div>
-        ) } */}
-       
-          </div>
+
         </div>
-          
+      </div>
     );
   }
 }
 const mapStateToRedux = state => {
   return state;
 };
-export default connect(mapStateToRedux, {getQuantity})(Shop);
+export default connect(
+  mapStateToRedux
+  // , {getQuantity}
+)(Shop);
