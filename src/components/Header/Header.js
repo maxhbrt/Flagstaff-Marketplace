@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FaSun } from "react-icons/fa";
 import { TiThMenu } from "react-icons/ti";
 import { connect } from "react-redux";
-import { setUser, getQuantity } from "../../Ducks/reducer";
+import { setUser} from "../../Ducks/reducer";
 import "./header.scss";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
@@ -11,8 +11,8 @@ import Badge from '@material-ui/core/Badge';
 
 
 class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       toggle: false,
       redirect:false,
@@ -38,7 +38,7 @@ class Header extends Component {
 
 
   render() {
-    console.log("Passing quantity via props", this.props.quantity)
+    console.log("Passing quantity via props", this.props.cartQuantity)
     return (
       <header>
         <div className="header-bar">
@@ -104,8 +104,8 @@ function mapReduxStateToProps(reduxState) {
   return reduxState;
 }
 const mapDispatchToProps = {
-  setUser,
-  getQuantity
+  setUser
+
 };
 
 const invokedConnect = connect(

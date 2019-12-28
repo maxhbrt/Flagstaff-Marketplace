@@ -1,4 +1,3 @@
-// require("dotenv").config();
 import React, { Component } from "react";
 import axios from "axios";
 import Card from "./Card";
@@ -62,13 +61,13 @@ class Shop extends Component {
     this.setState({
       quantity: (this.state.quantity += 1)
     });
-    // this.props.getQuantity();
+  
   };
 
   componentDidMount() {
-    // if (this.props.user) {
+    if (this.props.user) {
    this.getCart();
-    
+    }
 
     this.getAllItems();
     this.getAllGreens();
@@ -94,6 +93,7 @@ class Shop extends Component {
         this.setState({ quantity: newNum });
       }
     });
+    
   }
 
   getAllItems() {
