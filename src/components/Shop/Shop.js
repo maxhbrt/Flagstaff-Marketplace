@@ -181,7 +181,7 @@ class Shop extends Component {
   }
 
   render() {
-    console.log(this.state.cart);
+    console.log(this.props.quantity);
     const {
       greensInventory,
       produceInventory,
