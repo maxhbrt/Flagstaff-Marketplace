@@ -180,9 +180,11 @@ class Shop extends Component {
     });
   }
 
+  
   render() {
     console.log(this.props.quantity);
     const {
+
       greensInventory,
       produceInventory,
       eggsInventory,
