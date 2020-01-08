@@ -54,6 +54,22 @@ color:pink;
   cursor: pointer;
 }
 
+.login{
+  padding-top: 150px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./login-background.jpg");
+    background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+  align-content: center; 
+}
+
 @media(max-width: 700px){
 .about{
   display: none;

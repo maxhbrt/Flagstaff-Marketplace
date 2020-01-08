@@ -30,6 +30,7 @@ this.getTotal = this.getTotal.bind(this);
     }
 
     componentDidMount(){
+       
         this.getCart();
         // this.deleteFromCart();
         // this.decQuantity();
@@ -236,4 +237,4 @@ this.getTotal = this.getTotal.bind(this);
 
 }   
 const mapStateToRedux = state => {return state}
-export default connect(mapStateToRedux, addToCart)(Cart)
+export default connect(mapStateToRedux, getCart)(Cart)

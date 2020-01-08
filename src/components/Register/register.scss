@@ -40,3 +40,12 @@ padding: 20px;
 ::placeholder{
   color: pink;
 }
+.register{
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+}

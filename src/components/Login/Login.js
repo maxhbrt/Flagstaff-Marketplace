@@ -35,7 +35,7 @@ class Login extends Component {
     render(){
         const {email, password, redirect} = this.state;
         return(
-          <div className='login-body'>
+          <div className={!this.props.user ? 'login-body': 'login'}>
          
                 <div className='about'>By buying organic produce from your local farmer, you are working to maintain a healthy environment, a vibrant community, and a strong and sustainable local economy for you and your family to thrive in. 
                 </div>
