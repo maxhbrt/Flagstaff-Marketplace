@@ -21,7 +21,7 @@
 .register-form {
   background: rgba(205, 205, 198, 0.5);
 width: auto;
-height: 40vh;
+height: 30vh;
 border-style: solid;
 border-color: bisque;
 // background-color: bisque;
@@ -48,4 +48,9 @@ padding: 20px;
   justify-content: center;
   align-items: center;
   align-content: stretch;
+}
+
+.register-button:hover{
+  color:orange;
+  cursor: pointer;
 }

@@ -17,7 +17,7 @@ class Header extends Component {
       toggle: false,
       redirect:false,
       showLogout:false,
-      // quantity:this.props.quantity
+      quantity:this.props.quantity,
       cart: 0
     };
     this.toggler = this.toggler.bind(this);
@@ -83,6 +83,7 @@ class Header extends Component {
              <li className = 'cart-link'
              onClick={() =>{this.props.history.push('/cart')}}> <Badge badgeContent={
                this.props.cartQuantity
+             
                
             
               } color="primary"><FaShoppingBasket/></Badge></li> :
