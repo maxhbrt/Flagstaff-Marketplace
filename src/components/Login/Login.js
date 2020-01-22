@@ -41,7 +41,9 @@ class Login extends Component {
                 </div>
                 {this.props.user ? null :
                 <form className='login-form'>
+                  <div className="login-header">
                     LOGIN
+                    </div>
                     <div className="input-container">
             
             <input placeholder="email"
@@ -75,7 +77,7 @@ class Login extends Component {
             
              
           }}
-          >LOGIN</button>
+          >Submit</button>
                 </form>
     }
             </div>

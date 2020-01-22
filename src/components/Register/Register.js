@@ -107,7 +107,7 @@ class Register extends Component {
             this.register();
           }}>
 
-          REGISTER
+          SUBMIT
           
           
           </button>
